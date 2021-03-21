@@ -11,8 +11,20 @@ const LanguageToWelcome: Record<Language, string> = {
   Mandarin: "你好",
   English: "Hello",
 };
-const FADE_IN_TIME_IN_SEC = 1;
+const FADE_IN_TIME_IN_SEC = 10;
 
+const containerVariants: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    backgroundColor: 'red',
+    transition: {
+      when: "afterChildren"
+    }
+  }
+}
 const variants: Variants = {
   initial: {
     y: "-100%",
@@ -52,9 +64,6 @@ const titleVariant: Variants = {
       times: [0, 0.1, 0.2, 0.5, 1],
     },
   },
-  // exit: {
-  //   fontSize: 36
-  // }
 };
 export default function Home() {
   const [languageIndex, setLanguageIndex] = useState(0);
@@ -72,28 +81,34 @@ export default function Home() {
   }, []);
 
   return (
-    <div
+    <motion.div
       css={css`
         height: 100%;
         width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
       `}
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
     >
       <Head>
         <title>Kevin Qi</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <motion.div
-        initial
-        css={css`
-          height: 100%;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        `}
-      >
-        <AnimatePresence>
+              variants={variants}
+              key={languageIndex}
+              css={css`
+                font-size: 120px;
+              `}
+            >
+              {LanguageToWelcome[LANGUAGES[languageIndex]]}
+            </motion.div>
+        {/* <AnimatePresence>
           {languageIndex < LANGUAGES.length && (
             <motion.div
               variants={variants}
@@ -101,9 +116,6 @@ export default function Home() {
               css={css`
                 font-size: 120px;
               `}
-              initial="initial"
-              animate="animate"
-              exit="exit"
             >
               {LanguageToWelcome[LANGUAGES[languageIndex]]}
             </motion.div>
@@ -113,9 +125,6 @@ export default function Home() {
           {languageIndex === LANGUAGES.length && (
             <motion.div
               variants={titleVariant}
-              initial="initial"
-              animate="animate"
-              exit="exit"
             >
               <Link href="/test" passHref>
                 <div
@@ -129,17 +138,8 @@ export default function Home() {
               </Link>
             </motion.div>
           )}
-        </AnimatePresence>
-
-        {/* <motion.button
-          animate="visible"
-          variants={buttonVariants}
-          whileHover="hover"
-        >
-          Hello
-        </motion.button> */}
-      </motion.div>
-    </div>
+        </AnimatePresence> */}
+    </motion.div>
   );
 }
 
