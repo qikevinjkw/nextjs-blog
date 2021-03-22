@@ -5,26 +5,21 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-const LANGUAGES = ["Mandarin", "English"] as const;
-type Language = typeof LANGUAGES[number];
-const LanguageToWelcome: Record<Language, string> = {
-  Mandarin: "你好",
-  English: "Hello",
-};
-const FADE_IN_TIME_IN_SEC = 10;
+const LANGUAGES = ["你好", "Hello"] as const;
+const FADE_IN_TIME_IN_SEC = 1;
 
 const containerVariants: Variants = {
   initial: {
-    opacity: 0,
+    backgroundColor: "rgba(255,255,255,1)",
   },
   animate: {
-    opacity: 1,
-    backgroundColor: 'red',
+    backgroundColor: "rgba(24,38,54,1)",
     transition: {
-      when: "afterChildren"
-    }
-  }
-}
+      duration: 0.5,
+      delay: 6,
+    },
+  },
+};
 const variants: Variants = {
   initial: {
     y: "-100%",
@@ -55,13 +50,14 @@ const titleVariant: Variants = {
     opacity: 0,
   },
   animate: {
-    opacity: 1,
-    y: ["0vh", "0vh", "0vh", "0vh", "-47vh"],
-    scale: [5, 5, 5, 5, 2],
+    opacity: [0, 1, 1],
+    y: ["0vh", "0vh", "-47vh"],
+    scale: [5, 5, 2],
+    color: ["rgba(0,0,0,1)", "rgba(0,0,0,1)", "rgba(255,255,255,1)"],
     transition: {
-      delay: 0.5,
       duration: 3,
-      times: [0, 0.1, 0.2, 0.5, 1],
+      delay: 0.8,
+      times: [0, 0.4, 1],
     },
   },
 };
@@ -85,60 +81,55 @@ export default function Home() {
       css={css`
         height: 100%;
         width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       `}
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      exit="exit"
     >
       <Head>
         <title>Kevin Qi</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.div
-              variants={variants}
-              key={languageIndex}
-              css={css`
-                font-size: 120px;
-              `}
-            >
-              {LanguageToWelcome[LANGUAGES[languageIndex]]}
-            </motion.div>
-        {/* <AnimatePresence>
-          {languageIndex < LANGUAGES.length && (
-            <motion.div
-              variants={variants}
-              key={languageIndex}
-              css={css`
-                font-size: 120px;
-              `}
-            >
-              {LanguageToWelcome[LANGUAGES[languageIndex]]}
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {languageIndex === LANGUAGES.length && (
-            <motion.div
-              variants={titleVariant}
-            >
-              <Link href="/test" passHref>
-                <div
-                  css={css`
-                    text-decoration: none;
-                    cursor: pointer;
-                  `}
-                >
-                  Kevin Qi
-                </div>
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence> */}
+      <AnimatePresence>
+        {languageIndex < LANGUAGES.length && (
+          <motion.div
+            variants={variants}
+            key={languageIndex}
+            css={css`
+              font-size: 120px;
+            `}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {LANGUAGES[languageIndex]}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {languageIndex === LANGUAGES.length && (
+          <motion.div
+            variants={titleVariant}
+            initial="initial"
+            animate="animate"
+          >
+            <Link href="/test" passHref>
+              <div
+                css={css`
+                  text-decoration: none;
+                  cursor: pointer;
+                `}
+              >
+                Kevin Qi
+              </div>
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
