@@ -2,8 +2,9 @@
 import { css, jsx } from "@emotion/react";
 import Head from "next/head";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import Link from "next/link";
+import debounce from "lodash/debounce";
 
 const LANGUAGES = ["你好", "Hello"] as const;
 const FADE_IN_TIME_IN_SEC = 1;
@@ -51,6 +52,7 @@ const titleVariant: Variants = {
   },
   animate: {
     opacity: [0, 1, 1],
+    x: ["0vw", "0vw", "-42vw"],
     y: ["0vh", "0vh", "-47vh"],
     scale: [5, 5, 2],
     color: ["rgba(0,0,0,1)", "rgba(0,0,0,1)", "rgba(255,255,255,1)"],
@@ -64,6 +66,8 @@ const titleVariant: Variants = {
 export default function Home() {
   const [languageIndex, setLanguageIndex] = useState(0);
   const interval = useRef<number>();
+  const [cursorX, setCursorX] = useState(0);
+  const prevCursorX = useRef(0);
 
   useEffect(() => {
     interval.current = window.setInterval(() => {
@@ -76,8 +80,24 @@ export default function Home() {
     }, FADE_IN_TIME_IN_SEC * 2 * 1000);
   }, []);
 
+  const debounceSetCursorX = useCallback(
+    debounce((x: number) => {
+      setCursorX((prev) => {
+        prevCursorX.current = prev;
+        console.log("setcursorx to", prev, x);
+        return x;
+      });
+    }, 500),
+    []
+  );
+  const newDur = Math.ceil(Math.abs(prevCursorX.current - cursorX) / 70);
+  console.log("prevCursorX", prevCursorX.current, "cursorX", cursorX, newDur);
   return (
     <motion.div
+      onMouseMove={(e) => {
+        const x = e.clientX;
+        debounceSetCursorX(x);
+      }}
       css={css`
         height: 100%;
         width: 100%;
@@ -130,29 +150,36 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+      <motion.div
+        css={css`
+          position: fixed;
+          bottom: 10px;
+          left: 10px;
+        `}
+        animate={{
+          x: cursorX,
+          transition: {
+            duration: newDur,
+            ease: "easeInOut",
+          },
+        }}
+      >
+        Cat
+      </motion.div>
     </motion.div>
   );
 }
 
-const buttonVariants = {
-  hidden: {
-    x: 0,
-    y: 0,
-  },
-  visible: {
-    x: [0, 100, -100],
-    y: [0, 100, -100],
-    transition: {
-      duration: 8,
-    },
-  },
-  hover: {
-    scale: 1.1,
-    textShadow: "0px 0px 8px rgb(255, 255, 255)",
-    boxShadow: "0px 0px 8px rgb(255, 255, 255)",
-    transition: {
-      yoyo: Infinity,
-      duration: 0.5,
-    },
-  },
-};
+function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+}
