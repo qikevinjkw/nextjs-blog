@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+const SUN_COLOR = "orange";
 const mainCircleVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -13,12 +14,12 @@ const mainCircleVariants: Variants = {
     scale: 1,
     transition: {
       type: "spring",
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
       duration: 1,
     },
   },
   hover: {
-    fill: "black",
+    fill: SUN_COLOR,
   },
   exit: {
     opacity: 0,
@@ -37,7 +38,7 @@ function getBaseChildCircleVariants(endCx: number, endCy: number): Variants {
       cy: "15",
     },
     hover: {
-      fill: "black",
+      fill: SUN_COLOR,
     },
     visible: {
       opacity: 1,
@@ -53,12 +54,19 @@ function getBaseChildCircleVariants(endCx: number, endCy: number): Variants {
 
 export function LightDarkModeIcon() {
   const [visible, setVisible] = useState(false);
+  const [audio, setAudio] = useState(null);
+
+  useEffect(() => {
+    setAudio(new Audio("../pages/audio/dark-mode.wav"));
+  }, []);
+
   return (
     <motion.span
       whileHover={{
         cursor: "pointer",
       }}
       onClick={() => {
+        audio?.play();
         setVisible((prev) => !prev);
       }}
     >
@@ -133,7 +141,7 @@ const maskCircleVariants: Variants = {
   },
   visible: {
     cx: 20,
-    cy: 10,
+    cy: 9,
     transition: {
       duration: 0.5,
     },
@@ -147,7 +155,7 @@ const moonVariants: Variants = {
     cy: 15,
   },
   hover: {
-    fill: "black",
+    fill: "white",
   },
   visible: {
     opacity: 1,
@@ -160,7 +168,7 @@ const moonVariants: Variants = {
   },
 };
 
-function Moon({ bgColor = "white" }: { bgColor?: string }) {
+function Moon() {
   return (
     <motion.svg
       whileHover="hover"
@@ -170,8 +178,20 @@ function Moon({ bgColor = "white" }: { bgColor?: string }) {
       initial="hidden"
       animate="visible"
     >
-      <motion.circle r="8" fill="grey" variants={moonVariants} />
-      <motion.circle r="8" fill={bgColor} variants={maskCircleVariants} />
+      <mask id="moon-mask">
+        <rect x="6" y="6" width="18" height="18" fill="#FFF"></rect>
+        <motion.circle
+          r="8"
+          variants={maskCircleVariants}
+          fill="black"
+        ></motion.circle>
+      </mask>
+      <motion.circle
+        r="8"
+        fill="grey"
+        variants={moonVariants}
+        mask="url(#moon-mask)"
+      />
     </motion.svg>
   );
 }

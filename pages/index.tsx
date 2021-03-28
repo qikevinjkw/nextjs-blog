@@ -5,10 +5,11 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useEffect, useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import debounce from "lodash/debounce";
+import { IconBar } from "../components/IconBar";
+import { Title } from "../components/Title";
 
 const LANGUAGES = ["你好", "Hello"] as const;
 const FADE_IN_TIME_IN_SEC = 1;
-
 const containerVariants: Variants = {
   initial: {
     backgroundColor: "rgba(255,255,255,1)",
@@ -84,14 +85,12 @@ export default function Home() {
     debounce((x: number) => {
       setCursorX((prev) => {
         prevCursorX.current = prev;
-        console.log("setcursorx to", prev, x);
         return x;
       });
     }, 500),
     []
   );
   const newDur = Math.ceil(Math.abs(prevCursorX.current - cursorX) / 70);
-  console.log("prevCursorX", prevCursorX.current, "cursorX", cursorX, newDur);
   return (
     <motion.div
       onMouseMove={(e) => {
@@ -144,13 +143,14 @@ export default function Home() {
                   cursor: pointer;
                 `}
               >
-                Kevin Qi
+                <Title />
               </div>
             </Link>
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.div
+      <IconBar />
+      {/* <motion.div
         css={css`
           position: fixed;
           bottom: 10px;
@@ -165,7 +165,7 @@ export default function Home() {
         }}
       >
         Cat
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }
