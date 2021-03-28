@@ -12,6 +12,7 @@ export function Navbar() {
         width: 100%;
         height: 60px;
         background: var(--color-background);
+        transition: background-color 0.5s ease;
         display: flex;
         align-items: center;
         padding-left: 40px;

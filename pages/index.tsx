@@ -5,8 +5,55 @@ import Head from "next/head";
 import { useEffect, useRef } from "react";
 import { Navbar } from "../components/Navbar";
 
-const LANGUAGES = ["你好", "Hello"] as const;
-const FADE_IN_TIME_IN_SEC = 1;
+export default function Home() {
+  return (
+    <motion.div
+      css={css`
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-background);
+        transition: background-color 0.5s ease;
+      `}
+      animate={{
+        transition: {
+          duration: 1,
+        },
+      }}
+      // variants={containerVariants}
+      // initial="initial"
+      // animate="animate"
+    >
+      <Head>
+        <title>Kevin Qi</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Navbar />
+    </motion.div>
+  );
+}
+
+function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+}
+
+/**
+ *  
+ * 
+ * 
 const containerVariants: Variants = {
   initial: {
     backgroundColor: "rgba(255,255,255,1)",
@@ -61,47 +108,6 @@ const titleVariant: Variants = {
     },
   },
 };
-export default function Home() {
-  return (
-    <motion.div
-      css={css`
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--color-background);
-      `}
-      // variants={containerVariants}
-      // initial="initial"
-      // animate="animate"
-    >
-      <Head>
-        <title>Kevin Qi</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Navbar />
-    </motion.div>
-  );
-}
-
-function usePrevious(value) {
-  // The ref object is a generic container whose current property is mutable ...
-  // ... and can hold any value, similar to an instance property on a class
-  const ref = useRef();
-
-  // Store current value in ref
-  useEffect(() => {
-    ref.current = value;
-  }, [value]); // Only re-run if value changes
-
-  // Return previous value (happens before update in useEffect above)
-  return ref.current;
-}
-
-/**
- *  
  *  useEffect(() => {
     interval.current = window.setInterval(() => {
       setLanguageIndex((prev) => {
