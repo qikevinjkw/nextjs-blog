@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTheme } from "../providers/ThemeProvider";
 
 const SUN_COLOR = "orange";
 const mainCircleVariants: Variants = {
@@ -53,11 +54,11 @@ function getBaseChildCircleVariants(endCx: number, endCy: number): Variants {
 }
 
 export function LightDarkModeIcon() {
-  const [visible, setVisible] = useState(false);
   const [audio, setAudio] = useState(null);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setAudio(new Audio("../pages/audio/dark-mode.wav"));
+    setAudio(new Audio("/audio/dark-mode.wav"));
   }, []);
 
   return (
@@ -67,10 +68,10 @@ export function LightDarkModeIcon() {
       }}
       onClick={() => {
         audio?.play();
-        setVisible((prev) => !prev);
+        setTheme((prev) => (prev === "dark" ? "light" : "dark"));
       }}
     >
-      {visible ? <Sun /> : <Moon />}
+      {theme === "light" ? <Sun /> : <Moon />}
     </motion.span>
   );
 }

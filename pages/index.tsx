@@ -1,12 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import { motion, Variants } from "framer-motion";
 import Head from "next/head";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useEffect, useCallback, useRef, useState } from "react";
-import Link from "next/link";
-import debounce from "lodash/debounce";
-import { IconBar } from "../components/IconBar";
-import { Title } from "../components/Title";
+import { useEffect, useRef } from "react";
+import { Navbar } from "../components/Navbar";
 
 const LANGUAGES = ["你好", "Hello"] as const;
 const FADE_IN_TIME_IN_SEC = 1;
@@ -15,7 +12,7 @@ const containerVariants: Variants = {
     backgroundColor: "rgba(255,255,255,1)",
   },
   animate: {
-    backgroundColor: "rgba(24,38,54,1)",
+    backgroundColor: "var(--color-background)",
     transition: {
       duration: 0.5,
       delay: 6,
@@ -65,12 +62,47 @@ const titleVariant: Variants = {
   },
 };
 export default function Home() {
-  const [languageIndex, setLanguageIndex] = useState(0);
-  const interval = useRef<number>();
-  const [cursorX, setCursorX] = useState(0);
-  const prevCursorX = useRef(0);
+  return (
+    <motion.div
+      css={css`
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-background);
+      `}
+      // variants={containerVariants}
+      // initial="initial"
+      // animate="animate"
+    >
+      <Head>
+        <title>Kevin Qi</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Navbar />
+    </motion.div>
+  );
+}
 
+function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
   useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+}
+
+/**
+ *  
+ *  useEffect(() => {
     interval.current = window.setInterval(() => {
       setLanguageIndex((prev) => {
         if (prev === LANGUAGES.length - 1) {
@@ -80,56 +112,7 @@ export default function Home() {
       });
     }, FADE_IN_TIME_IN_SEC * 2 * 1000);
   }, []);
-
-  const debounceSetCursorX = useCallback(
-    debounce((x: number) => {
-      setCursorX((prev) => {
-        prevCursorX.current = prev;
-        return x;
-      });
-    }, 500),
-    []
-  );
-  const newDur = Math.ceil(Math.abs(prevCursorX.current - cursorX) / 70);
-  return (
-    <motion.div
-      onMouseMove={(e) => {
-        const x = e.clientX;
-        debounceSetCursorX(x);
-      }}
-      css={css`
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      `}
-      variants={containerVariants}
-      initial="initial"
-      animate="animate"
-    >
-      <Head>
-        <title>Kevin Qi</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <AnimatePresence>
-        {languageIndex < LANGUAGES.length && (
-          <motion.div
-            variants={variants}
-            key={languageIndex}
-            css={css`
-              font-size: 120px;
-            `}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          >
-            {LANGUAGES[languageIndex]}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
+ *  <AnimatePresence>
         {languageIndex === LANGUAGES.length && (
           <motion.div
             variants={titleVariant}
@@ -149,37 +132,20 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <IconBar />
-      {/* <motion.div
-        css={css`
-          position: fixed;
-          bottom: 10px;
-          left: 10px;
-        `}
-        animate={{
-          x: cursorX,
-          transition: {
-            duration: newDur,
-            ease: "easeInOut",
-          },
-        }}
-      >
-        Cat
-      </motion.div> */}
-    </motion.div>
-  );
-}
-
-function usePrevious(value) {
-  // The ref object is a generic container whose current property is mutable ...
-  // ... and can hold any value, similar to an instance property on a class
-  const ref = useRef();
-
-  // Store current value in ref
-  useEffect(() => {
-    ref.current = value;
-  }, [value]); // Only re-run if value changes
-
-  // Return previous value (happens before update in useEffect above)
-  return ref.current;
-}
+ * <AnimatePresence>
+        {languageIndex < LANGUAGES.length && (
+          <motion.div
+            variants={variants}
+            key={languageIndex}
+            css={css`
+              font-size: 120px;
+            `}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {LANGUAGES[languageIndex]}
+          </motion.div>
+        )}
+      </AnimatePresence>
+ */
