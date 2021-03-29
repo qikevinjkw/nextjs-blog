@@ -4,6 +4,7 @@ import { IconBar } from "../components/IconBar";
 import { Title } from "../components/Title";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import Image from "next/image";
 
 const Li = styled.li`
   margin: 10px;

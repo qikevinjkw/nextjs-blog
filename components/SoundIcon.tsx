@@ -36,10 +36,10 @@ export function SoundIcon() {
   const unmuteAudio = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    muteAudio.current = new Audio("/audio/cat-meow.wav");
-    muteAudio.current.volume = 0.3;
-    unmuteAudio.current = new Audio("/audio/lion-roar.wav");
-    unmuteAudio.current.volume = 0.3;
+    muteAudio.current = new Audio("/audio/sweep.wav");
+    muteAudio.current.volume = 0.5;
+    unmuteAudio.current = new Audio("/audio/high-tech.wav");
+    unmuteAudio.current.volume = 0.5;
   }, []);
   const { soundEnabled, setSoundEnabled } = useTheme();
 
