@@ -9,7 +9,7 @@ const svgVariants: Variants = {
     opacity: 1,
     transition: {
       type: "spring",
-      staggerChildren: 0.4,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -29,7 +29,7 @@ const pathVariants: Variants = {
 };
 export function Title() {
   return (
-    <Link href="/test" passHref>
+    <Link href="/" passHref>
       <div
         css={css`
           text-decoration: none;

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.1.5",
     "@types/lodash": "^4.14.168",
     "@types/lodash-es": "^4.17.4",
     "framer-motion": "^4.0.0",

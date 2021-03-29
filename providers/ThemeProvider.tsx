@@ -23,11 +23,14 @@ export const COLORS: Record<
 interface ITheme {
   theme: ThemeMode;
   setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
+  soundEnabled: boolean;
+  setSoundEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ThemeContext = React.createContext<ITheme | undefined>(undefined);
 
 export function ThemeProvider(props) {
   const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -56,6 +59,8 @@ export function ThemeProvider(props) {
       value={{
         theme,
         setTheme,
+        soundEnabled,
+        setSoundEnabled,
       }}
     >
       {props.children}

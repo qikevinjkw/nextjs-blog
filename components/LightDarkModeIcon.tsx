@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useEffect, useState } from "react";
+import { jsx } from "@emotion/react";
+import { motion, Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "../providers/ThemeProvider";
 
 const SUN_COLOR = "orange";
@@ -54,11 +54,12 @@ function getBaseChildCircleVariants(endCx: number, endCy: number): Variants {
 }
 
 export function LightDarkModeIcon() {
-  const [audio, setAudio] = useState(null);
-  const { theme, setTheme } = useTheme();
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const { theme, setTheme, soundEnabled } = useTheme();
 
   useEffect(() => {
-    setAudio(new Audio("/audio/dark-mode.wav"));
+    audio.current = new Audio("/audio/dark-mode.wav");
+    audio.current.volume = 0.5;
   }, []);
 
   return (
@@ -67,7 +68,9 @@ export function LightDarkModeIcon() {
         cursor: "pointer",
       }}
       onClick={() => {
-        audio?.play();
+        if (soundEnabled) {
+          audio.current?.play();
+        }
         setTheme((prev) => (prev === "dark" ? "light" : "dark"));
       }}
     >
