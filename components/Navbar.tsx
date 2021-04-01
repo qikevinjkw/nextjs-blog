@@ -14,7 +14,7 @@ const Li = styled.li`
 
 function NavbarLink({ href, name }: { href: string; name: string }) {
   const router = useRouter();
-  // console.log("router", router.pathname, href);
+  // console.log("router ", router.pathname, href);
   return (
     <Link href={href} passHref>
       <div
