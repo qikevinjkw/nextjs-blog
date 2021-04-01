@@ -8,7 +8,7 @@ import { animated, interpolate, useSprings } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import { shuffle } from "lodash";
 
-const BOOKS = [
+const BOOKS: string[] = [
   "/images/atomic_habits.jpeg",
   "/images/captain_underpants.jpeg",
   "/images/naval.jpg",
@@ -18,7 +18,7 @@ const BOOKS = [
   "/images/disrupted.png",
   "/images/outliers.jpeg",
   "/images/suspect_x.jpeg",
-] as const;
+];
 
 const to = (i) => ({
   x: 0,
@@ -54,6 +54,7 @@ export function BookStack() {
       const ydir = yDir < 0 ? -1 : 1; // Direction should either point left or right
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
+      // @ts-ignore
       set((i) => {
         if (index !== i) return; // We're only interested in changing spring-data for the current spring
         const isGone = gone.has(index);
@@ -75,6 +76,7 @@ export function BookStack() {
         setTimeout(() => {
           setBooks((prev) => shuffle(prev));
           gone.clear();
+          // @ts-ignore
           set((i) => to(i));
         }, 600);
       }
