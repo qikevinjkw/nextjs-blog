@@ -5,6 +5,17 @@ body {
   margin: 0;
   font-family: "Wotfard", Futura, -apple-system, sans-serif;
   color: var(--color-text);
+  /* https://codesandbox.io/embed/j0y0vpz59 */
+  overscroll-behavior-y: contain;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  position: fixed;
+  overflow: hidden;
 }
 
 #__next {

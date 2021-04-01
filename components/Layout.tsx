@@ -10,10 +10,10 @@ export function Layout(props) {
       css={css`
         height: 100%;
         width: 100%;
-        display: flex;
+        /* display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
         background-color: var(--color-background);
         transition: background-color 0.5s ease;
       `}
