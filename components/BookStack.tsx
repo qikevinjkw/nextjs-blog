@@ -3,12 +3,12 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { animated, interpolate, useSprings } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import { shuffle } from "lodash";
 
-const books = shuffle([
+const BOOKS = [
   "/images/atomic_habits.jpeg",
   "/images/captain_underpants.jpeg",
   "/images/naval.jpg",
@@ -18,7 +18,7 @@ const books = shuffle([
   "/images/disrupted.png",
   "/images/outliers.jpeg",
   "/images/suspect_x.jpeg",
-]);
+] as const;
 
 const to = (i) => ({
   x: 0,
@@ -27,7 +27,7 @@ const to = (i) => ({
   rot: -10 + Math.random() * 20,
   delay: i * 100,
 });
-const from = (i) => ({ x: 0, rot: 0, scale: 1, y: 0 });
+const from = (i) => ({ x: 0, rot: 0, scale: 1, y: 1000 });
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
 const trans = (r, s) =>
   `perspective(1500px) rotateX(10deg) rotateY(${
@@ -35,6 +35,7 @@ const trans = (r, s) =>
   }deg) rotateZ(${r}deg) scale(${s})`;
 
 export function BookStack() {
+  const [books, setBooks] = useState(BOOKS);
   const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
   const [props, set] = useSprings(books.length, (i) => ({
     ...to(i),
@@ -71,7 +72,11 @@ export function BookStack() {
         };
       });
       if (!down && gone.size === books.length) {
-        setTimeout(() => gone.clear() || set((i) => to(i)), 600);
+        setTimeout(() => {
+          setBooks((prev) => shuffle(prev));
+          gone.clear();
+          set((i) => to(i));
+        }, 600);
       }
     }
   );
@@ -97,6 +102,7 @@ export function BookStack() {
           <animated.div
             {...bind(i)}
             style={{
+              willChange: "transform",
               transform: interpolate([rot, scale], trans),
             }}
           >
