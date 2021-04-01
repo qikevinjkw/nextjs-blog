@@ -6,19 +6,19 @@ export const COLORS: Record<
   {
     text: string;
     background: string;
-    primary: string;
+    post: string;
     squigglyLine: string;
   }
 > = {
   light: {
-    background: "white",
-    primary: "white",
+    background: "#eff1f5",
+    post: "white",
     text: "black",
     squigglyLine: "#5720ff",
   },
   dark: {
     background: "rgba(24,38,54,1)",
-    primary: "rgba(24,38,54,1)",
+    post: "#334f6f",
     text: "white",
     squigglyLine: "#FFEE51",
   },
@@ -56,8 +56,8 @@ export function ThemeProvider(props) {
       theme === "light" ? COLORS.light.background : COLORS.dark.background
     );
     root.style.setProperty(
-      "--color-primary",
-      theme === "light" ? COLORS.light.primary : COLORS.dark.primary
+      "--color-post",
+      theme === "light" ? COLORS.light.post : COLORS.dark.post
     );
   }, [theme]);
 

@@ -1,15 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { IconBar } from "../components/IconBar";
-import { Title } from "../components/Title";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import { IconBar } from "../components/IconBar";
+import { Title } from "../components/Title";
 import { SquigglyLine } from "./SquigglyLine";
 
 const Li = styled.li`
-  margin: 0 10px; // 10px 0 10px;
+  margin: 0 10px;
   cursor: pointer;
 `;
 
