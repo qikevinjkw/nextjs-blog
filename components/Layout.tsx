@@ -10,10 +10,10 @@ export function Layout(props) {
       css={css`
         height: 100%;
         width: 100%;
-        /* display: flex;
+        display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center; */
+        /* align-items: center;
+        justify-content: center;  */
         background-color: var(--color-background);
         transition: background-color 0.5s ease;
       `}
@@ -28,7 +28,14 @@ export function Layout(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main>{props.children}</main>
+      <main
+        css={css`
+          width: 100%;
+          height: 100%;
+        `}
+      >
+        {props.children}
+      </main>
     </motion.div>
   );
 }

@@ -14,7 +14,15 @@ export default function Test() {
   });
 
   return (
-    <div>
+    <div
+      css={css`
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      `}
+    >
       <BookStack />
     </div>
   );

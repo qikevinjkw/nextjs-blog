@@ -15,7 +15,6 @@ export function Navbar() {
   return (
     <div
       css={css`
-        position: fixed;
         top: 0;
         width: 100%;
         height: 60px;
