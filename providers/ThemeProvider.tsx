@@ -7,17 +7,20 @@ export const COLORS: Record<
     text: string;
     background: string;
     primary: string;
+    squigglyLine: string;
   }
 > = {
   light: {
     background: "white",
     primary: "white",
     text: "black",
+    squigglyLine: "#5720ff",
   },
   dark: {
     background: "rgba(24,38,54,1)",
     primary: "rgba(24,38,54,1)",
     text: "white",
+    squigglyLine: "#FFEE51",
   },
 };
 interface ITheme {
@@ -40,6 +43,10 @@ export function ThemeProvider(props) {
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const root = window.document.documentElement;
+    root.style.setProperty(
+      "--squiggly-line",
+      theme === "light" ? COLORS.light.squigglyLine : COLORS.dark.squigglyLine
+    );
     root.style.setProperty(
       "--color-text",
       theme === "light" ? COLORS.light.text : COLORS.dark.text
