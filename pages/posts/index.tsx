@@ -38,7 +38,7 @@ export default function Posts({
       `}
     >
       <Head>
-        <title>Posts</title>
+        <title>Posts </title>
       </Head>
       <span
         css={css`
