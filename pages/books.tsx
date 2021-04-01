@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import { BookStack } from "../components/BookStack";
+import Head from "next/head";
 
 export default function Books() {
   return (
@@ -13,6 +14,9 @@ export default function Books() {
         align-items: center;
       `}
     >
+      <Head>
+        <title>Favorite Books</title>
+      </Head>
       <BookStack />
     </div>
   );

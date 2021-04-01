@@ -1,3 +1,12 @@
+import Head from "next/head";
+
 export default function About() {
-  return <main>About</main>;
+  return (
+    <main>
+      <Head>
+        <title>About Me</title>
+      </Head>
+      About
+    </main>
+  );
 }

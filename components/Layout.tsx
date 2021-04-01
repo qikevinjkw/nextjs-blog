@@ -23,10 +23,6 @@ export function Layout(props) {
         },
       }}
     >
-      <Head>
-        <title>Kevin Qi</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Navbar />
       <main
         css={css`

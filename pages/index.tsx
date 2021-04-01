@@ -1,8 +1,15 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
+import Head from "next/head";
 
 export default function Home() {
-  return <main>Main page</main>;
+  return (
+    <main>
+      <Head>
+        <title>Kevin Qi</title>
+      </Head>
+    </main>
+  );
 }
 
 /**
