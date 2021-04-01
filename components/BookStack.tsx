@@ -145,40 +145,43 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
   return (
     <>
-      {props.map(({ x, y, rot, scale, minHeight, minWidth }, i) => {
-        return (
-          <animated.div
-            key={i}
-            style={{
-              position: "absolute",
-              willChange: "transform",
-              transform: interpolate(
-                [x, y],
-                (x, y) => `translate(${x}px,${y}px)`
-              ),
-            }}
-          >
+      {
+        // @ts-ignore
+        props.map(({ x, y, rot, scale, minHeight, minWidth }, i) => {
+          return (
             <animated.div
-              {...(displayMode === "stacked" ? bind(i) : {})}
+              key={i}
               style={{
+                position: "absolute",
                 willChange: "transform",
-                transform: interpolate([rot, scale], trans),
+                transform: interpolate(
+                  [x, y],
+                  (x, y) => `translate(${x}px,${y}px)`
+                ),
               }}
             >
-              <Image
-                css={css`
-                  /* min-height: ${BOOK_HEIGHT}px;
+              <animated.div
+                {...(displayMode === "stacked" ? bind(i) : {})}
+                style={{
+                  willChange: "transform",
+                  transform: interpolate([rot, scale], trans),
+                }}
+              >
+                <Image
+                  css={css`
+                    /* min-height: ${BOOK_HEIGHT}px;
                   min-width: ${BOOK_WIDTH}px; */
-                `}
-                src={books[i]}
-                width={BOOK_WIDTH}
-                height={BOOK_HEIGHT}
-                draggable={false}
-              />
+                  `}
+                  src={books[i]}
+                  width={BOOK_WIDTH}
+                  height={BOOK_HEIGHT}
+                  draggable={false}
+                />
+              </animated.div>
             </animated.div>
-          </animated.div>
-        );
-      })}
+          );
+        })
+      }
     </>
   );
 }
