@@ -11,6 +11,9 @@ import { BookDisplayMode } from "../pages/books";
 import { isBrowser } from "../lib/utils";
 
 const BOOKS: string[] = [
+  "/images/chaosmonkeys.jpeg",
+  "/images/harrypotter.jpeg",
+  "/images/howtofail.jpeg",
   "/images/atomic_habits.jpeg",
   "/images/captain_underpants.jpeg",
   "/images/naval.jpg",
@@ -21,35 +24,46 @@ const BOOKS: string[] = [
   "/images/outliers.jpeg",
   "/images/suspect_x.jpeg",
 ];
-const BOOK_WIDTH = 500;
-const BOOK_HEIGHT = 310;
+const BOOK_WIDTH = 310;
+const BOOK_HEIGHT = 500;
+function getScreenMid() {
+  if (!isBrowser()) {
+    return {};
+  }
+  return {
+    x: window.innerWidth / 2 - BOOK_WIDTH / 2,
+    y: window.innerHeight / 2 - BOOK_HEIGHT / 2,
+  };
+}
 const to = (i: number, displayMode: BookDisplayMode) => {
   if (!isBrowser()) {
     return {};
   }
   if (displayMode === "stacked") {
     return {
-      x: window.innerWidth / 2 - BOOK_WIDTH / 3,
-      y: window.innerHeight / 6,
+      ...getScreenMid(),
       scale: 1,
       rot: -10 + Math.random() * 20,
-      delay: i * 100,
-    };
-  } else {
-    const scale = 0.5;
-    const newWidth = BOOK_WIDTH * scale;
-    const newHeight = BOOK_HEIGHT * (scale + 0.3);
-    const booksPerRow = Math.floor(window.innerWidth / newWidth);
-
-    return {
-      transformOrigin: "-50% -50%",
-      x: (i % booksPerRow) * newWidth - 50,
-      y: Math.floor(i / booksPerRow) * newHeight,
-      scale: 0.5,
+      // delay: i * 100,
     };
   }
+
+  const scale = 0.5;
+  const newWidth = BOOK_WIDTH * scale;
+  const newHeight = BOOK_HEIGHT * scale;
+  const booksPerRow = Math.floor(window.innerWidth / newWidth);
+
+  return {
+    x: (i % booksPerRow) * newWidth - 50,
+    y: Math.floor(i / booksPerRow) * newHeight,
+    minHeight: newHeight,
+    minWidth: newWidth,
+    scale,
+  };
 };
-const from = (i) => ({ x: 0, rot: 0, scale: 1, y: 1000 });
+const from = (i: number, displayMode: BookDisplayMode) => {
+  return { x: 0, rot: 0, scale: 1, y: 1000 };
+};
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
 const trans = (r, s) =>
   `perspective(1500px) rotateX(10deg) rotateY(${
@@ -62,7 +76,7 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
   // @ts-ignore
   const [props, set] = useSprings(books.length, (i) => ({
     ...to(i, displayMode),
-    from: from(i),
+    from: from(i, displayMode),
   })); // Create a bunch of springs using the helpers above
 
   useEffect(() => {
@@ -95,8 +109,17 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
       set((i) => {
         if (index !== i) return; // We're only interested in changing spring-data for the current spring
         const isGone = gone.has(index);
-        const x = isGone ? (200 + window.innerWidth) * xdir : down ? mx : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
-        const y = isGone ? (200 + window.innerHeight) * ydir : down ? my : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
+        const { x: startX, y: startY } = getScreenMid();
+        const x = isGone
+          ? (200 + window.innerWidth) * xdir
+          : down
+          ? startX + mx
+          : startX;
+        const y = isGone
+          ? (200 + window.innerHeight) * ydir
+          : down
+          ? startY + my
+          : startY;
 
         const rot = mx / 100 + (isGone ? xdir * 10 * velocity : 0); // How much the card tilts, flicking it harder makes it rotate faster
         const scale = down ? 1.1 : 1; // Active cards lift up a bit
@@ -122,34 +145,40 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
   return (
     <>
-      {props.map(({ x, y, rot, scale }, i) => (
-        <animated.div
-          css={css`
-            position: absolute;
-            will-change: transform;
-            height: ${BOOK_HEIGHT}px;
-            width: ${BOOK_WIDTH}px;
-          `}
-          key={i}
-          style={{
-            transform: interpolate(
-              [x, y],
-              // (x, y) => `translate(${x}px,${y}px,0) scale(${scale})`
-              (x, y) => `translate3d(${x}px,${y}px,0)`
-            ),
-          }}
-        >
+      {props.map(({ x, y, rot, scale, minHeight, minWidth }, i) => {
+        return (
           <animated.div
-            {...(displayMode === "stacked" ? bind(i) : {})}
+            key={i}
             style={{
+              position: "absolute",
               willChange: "transform",
-              transform: interpolate([rot, scale], trans),
+              transform: interpolate(
+                [x, y],
+                (x, y) => `translate(${x}px,${y}px)`
+              ),
             }}
           >
-            <Image src={books[i]} width={310} height={500} draggable={false} />
+            <animated.div
+              {...(displayMode === "stacked" ? bind(i) : {})}
+              style={{
+                willChange: "transform",
+                transform: interpolate([rot, scale], trans),
+              }}
+            >
+              <Image
+                css={css`
+                  /* min-height: ${BOOK_HEIGHT}px;
+                  min-width: ${BOOK_WIDTH}px; */
+                `}
+                src={books[i]}
+                width={BOOK_WIDTH}
+                height={BOOK_HEIGHT}
+                draggable={false}
+              />
+            </animated.div>
           </animated.div>
-        </animated.div>
-      ))}
+        );
+      })}
     </>
   );
 }

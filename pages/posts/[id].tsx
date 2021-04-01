@@ -23,7 +23,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData }: { postData: IPostsData }) {
-  console.log("postData", postData);
   return (
     <div>
       <Head>

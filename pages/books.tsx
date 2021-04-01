@@ -7,7 +7,7 @@ import { capitalize } from "lodash";
 
 export type BookDisplayMode = "stacked" | "flat";
 export default function Books() {
-  const [displayMode, setDisplayMode] = useState<BookDisplayMode>("stacked");
+  const [displayMode, setDisplayMode] = useState<BookDisplayMode>("flat");
   return (
     <div
       css={css`
@@ -72,8 +72,7 @@ export default function Books() {
           width: 100%;
           height: 100%;
           display: flex;
-          /* justify-content: center;
-          align-items: center; */
+          flex-wrap: wrap;
         `}
       >
         <Head>
