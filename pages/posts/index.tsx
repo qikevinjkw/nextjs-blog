@@ -4,17 +4,7 @@ import styled from "@emotion/styled";
 import { getSortedPostsData, IPostsData } from "../../lib/posts";
 import Head from "next/head";
 import Link from "next/link";
-
-const PostDiv = styled.div`
-  margin: 10px;
-  width: 40vw;
-  cursor: pointer;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.54);
-  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.14);
-  padding: 20px;
-  background: var(--color-post);
-`;
+import { Card, PostTile } from "../../components/PostTile";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -59,47 +49,22 @@ export default function Posts({
             flex-wrap: wrap;
           `}
         >
-          {allPostsData.map(({ id, date, title, summary }, index) => (
-            <Link href={`/posts/${id}`} passHref key={id}>
-              <PostDiv>
-                <span
-                  css={css`
-                    display: flex;
-                    align-items: flex-end;
-                  `}
-                >
-                  <h4
-                    css={css`
-                      margin: 0;
-                    `}
-                  >
-                    {title}
-                  </h4>
-                  <h6
-                    css={css`
-                      margin: 0 0 0 10px;
-                    `}
-                  >
-                    {date}
-                  </h6>
-                </span>
-                <br />
-                {summary}
-                <br />
-                <br />
-                Click for more 📚
-                <br />
-              </PostDiv>
+          {allPostsData.map((postData, index) => (
+            <Link href={`/posts/${postData.id}`} passHref key={postData.id}>
+              <>
+                <PostTile {...postData}></PostTile>
+              </>
             </Link>
           ))}
           {allPostsData.length % 2 === 1 ? (
-            <PostDiv
-              css={css`
+            <PostTile
+              cssStyles={css`
                 visibility: hidden;
               `}
-            ></PostDiv>
+            ></PostTile>
           ) : null}
         </div>
+        <Card />
       </section>
     </main>
   );

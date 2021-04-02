@@ -150,7 +150,7 @@ export function BookStack({
           setBooks((prev) => shuffle(prev));
           gone.clear();
           // @ts-ignore
-          set((i) => to(i));
+          set((i) => to(i, displayMode));
         }, 600);
       }
     }
