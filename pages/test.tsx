@@ -22,8 +22,6 @@ export default function Test() {
         justify-content: center;
         align-items: center;
       `}
-    >
-      <BookStack />
-    </div>
+    ></div>
   );
 }

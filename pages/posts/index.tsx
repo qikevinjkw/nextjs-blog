@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import styled from "@emotion/styled";
-import { getSortedPostsData, IPostsData } from "../../lib/posts";
 import Head from "next/head";
 import Link from "next/link";
-import { Card, PostTile } from "../../components/PostTile";
+import { PostTile } from "../../components/PostTile";
+import { getSortedPostsData, IPostsData } from "../../lib/posts";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -64,7 +63,6 @@ export default function Posts({
             ></PostTile>
           ) : null}
         </div>
-        <Card />
       </section>
     </main>
   );
