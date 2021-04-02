@@ -156,14 +156,12 @@ export function BookStack({
     }
   );
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
-  console.log("books", books);
 
   return (
     <>
       {
         // @ts-ignore
-        props.map(({ x, y, rot, scale, minHeight, minWidth }, i) => {
-          console.log("render prop", i, books[i]);
+        props.map(({ x, y, rot, scale }, i) => {
           return (
             <animated.div
               key={i}
