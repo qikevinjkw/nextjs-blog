@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { capitalize } from "lodash";
 import styled from "@emotion/styled";
-const CoolSpan = styled.span`
+const CoolSpan = styled("span")`
   display: block;
   padding: 12px 12px;
   border-radius: 12px;
@@ -16,7 +16,10 @@ const CoolSpan = styled.span`
   will-change: transform;
   transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 `;
-const CoolButton = styled.button`
+const CoolButton = styled("button")<{
+  width: number;
+  height: number;
+}>`
   width: ${(props: any) => props.width}px;
   height: ${(props: any) => props.height}px;
   background: hsl(277deg 100% 33%);

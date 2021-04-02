@@ -30,7 +30,6 @@ export default function Posts({
 }: {
   allPostsData: IPostsData[];
 }) {
-  console.log("allPostsData", allPostsData);
   return (
     <main
       css={css`
