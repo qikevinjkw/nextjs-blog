@@ -15,7 +15,11 @@ class MyDocument extends Document {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-0RYZ8KVF0F');
+              gtag('config', 'G-0RYZ8KVF0F', {
+                'debug_mode': ${
+                  process.env.NODE_ENV === "development" ? true : false
+                }
+              });
               `,
             }}
           />
