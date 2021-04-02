@@ -50,9 +50,15 @@ export default function Posts({
         >
           {allPostsData.map((postData, index) => (
             <Link href={`/posts/${postData.id}`} passHref key={postData.id}>
-              <>
+              <div
+                css={css`
+                  &:hover {
+                    z-index: 1;
+                  }
+                `}
+              >
                 <PostTile {...postData}></PostTile>
-              </>
+              </div>
             </Link>
           ))}
           {allPostsData.length % 2 === 1 ? (

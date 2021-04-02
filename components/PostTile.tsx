@@ -17,7 +17,7 @@ const PostDiv = styled(animated.div)`
 
 const calc = (x, y, itemWidth, itemHeight) => [
   -(y - itemHeight / 2) / 20,
-  (x - itemWidth / 2) / 50,
+  (x - itemWidth / 2) / 70,
   1.05,
 ];
 const trans = (x, y, s) =>
