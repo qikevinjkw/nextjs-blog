@@ -5,8 +5,9 @@ import { getSortedPostsData, IPostsData } from "../../lib/posts";
 import Head from "next/head";
 import Link from "next/link";
 
-const Li = styled.li`
+const PostDiv = styled.div`
   margin: 10px;
+  width: 40vw;
   cursor: pointer;
   border-radius: 5px;
   -webkit-box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.54);
@@ -49,18 +50,18 @@ export default function Posts({
         <h2>Posts</h2>
       </span>
       <section>
-        <ul
+        <div
           css={css`
-            margin: 50px;
             padding: 5px;
             display: flex;
+            justify-content: center;
             list-style: none;
-            flex-direction: column;
+            flex-wrap: wrap;
           `}
         >
-          {allPostsData.map(({ id, date, title }) => (
+          {allPostsData.map(({ id, date, title }, index) => (
             <Link href={`/posts/${id}`} passHref key={id}>
-              <Li>
+              <PostDiv>
                 <span
                   css={css`
                     display: flex;
@@ -85,10 +86,17 @@ export default function Posts({
                 <br />
                 Click for more 📚
                 <br />
-              </Li>
+              </PostDiv>
             </Link>
           ))}
-        </ul>
+          {allPostsData.length % 2 === 1 ? (
+            <PostDiv
+              css={css`
+                visibility: hidden;
+              `}
+            ></PostDiv>
+          ) : null}
+        </div>
       </section>
     </main>
   );
