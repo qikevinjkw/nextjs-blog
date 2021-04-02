@@ -66,7 +66,8 @@ export function PostTile({
       <span
         css={css`
           display: flex;
-          align-items: flex-end;
+          align-items: flex-start;
+          justify-content: space-between;
         `}
       >
         <h4
@@ -79,6 +80,7 @@ export function PostTile({
         <h6
           css={css`
             margin: 0 0 0 10px;
+            min-width: 64px;
           `}
         >
           {date}
