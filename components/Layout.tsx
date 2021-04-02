@@ -16,6 +16,7 @@ export function Layout(props) {
         justify-content: center;  */
         background-color: var(--color-background);
         transition: background-color 0.5s ease;
+        overflow: auto;
       `}
       animate={{
         transition: {

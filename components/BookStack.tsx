@@ -24,8 +24,8 @@ const BOOKS: string[] = [
   "/images/outliers.jpeg",
   "/images/suspect_x.jpeg",
 ];
-const BOOK_WIDTH = 310;
-const BOOK_HEIGHT = 500;
+const BOOK_WIDTH = 250;
+const BOOK_HEIGHT = 420;
 function getScreenMid() {
   if (!isBrowser()) {
     return {};
@@ -48,7 +48,7 @@ const to = (i: number, displayMode: BookDisplayMode) => {
     };
   }
 
-  const scale = 0.5;
+  const scale = 0.3;
   const newWidth = BOOK_WIDTH * scale;
   const newHeight = BOOK_HEIGHT * scale;
   const booksPerRow = Math.floor(window.innerWidth / newWidth);
@@ -88,7 +88,6 @@ export function BookStack({
   useEffect(() => {
     setBooks((prev) => {
       const shuffled = shuffle(prev);
-      console.log("shuffling", shuffled);
       return shuffled;
     });
   }, [shuffleToggle]);

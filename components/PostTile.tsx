@@ -9,8 +9,6 @@ const PostDiv = styled(animated.div)`
   width: 40vw;
   cursor: pointer;
   border-radius: 5px;
-  -webkit-box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.54);
-  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.14);
   padding: 20px;
   background: var(--color-post);
 `;
@@ -46,12 +44,12 @@ export function PostTile({
         cssStyles,
         css`
           &:hover {
-            -webkit-box-shadow: 0px 0px 17px 2px rgba(255, 255, 255, 0.85);
-            box-shadow: 0px 0px 17px 2px rgba(255, 255, 255, 0.85);
+            -webkit-box-shadow: 0px 0px 20px 1px var(--shadow-color-hover);
+            box-shadow: 0px 0px 20px 5px var(--shadow-color-hover);
           }
           transition: box-shadow 0.5s ease-in-out;
-          -webkit-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.85);
-          box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.85);
+          -webkit-box-shadow: 0px 0px 20px 1px var(--shadow-color);
+          box-shadow: 0px 0px 20px 1px var(--shadow-color);
         `,
       ]}
       onMouseMove={({ clientX, clientY, ...e }) => {

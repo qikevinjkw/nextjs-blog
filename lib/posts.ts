@@ -11,7 +11,9 @@ export interface IPostsData {
   title: string;
   summary: string;
   contentHtml?: string;
+  contentString?: string;
   date: string;
+  image: string;
 }
 export function getSortedPostsData() {
   // Get file names under /posts
@@ -67,11 +69,17 @@ export async function getPostData(id: string) {
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
+  console.log(
+    "matterResult.content",
+    matterResult.content,
+    typeof matterResult.content
+  );
 
   // Combine the data with the id
   return {
     id,
     contentHtml,
+    contentString: matterResult.content,
     ...matterResult.data,
   } as IPostsData;
 }

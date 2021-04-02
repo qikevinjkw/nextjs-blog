@@ -43,7 +43,6 @@ export function Navbar() {
         transition: background-color 0.5s ease;
         display: flex;
         align-items: center;
-        padding-left: 40px;
       `}
     >
       <Title />
@@ -63,7 +62,6 @@ export function Navbar() {
         >
           <NavbarLink href="/posts" name="Posts" />
           <NavbarLink href="/books" name="Books" />
-          <NavbarLink href="/about" name="About" />
         </ul>
       </nav>
       <IconBar />
