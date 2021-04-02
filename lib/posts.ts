@@ -9,6 +9,7 @@ const postsDirectory = path.join(process.cwd(), "posts");
 export interface IPostsData {
   id: string;
   title: string;
+  summary: string;
   contentHtml?: string;
   date: string;
 }

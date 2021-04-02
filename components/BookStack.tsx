@@ -70,7 +70,13 @@ const trans = (r, s) =>
     r / 10
   }deg) rotateZ(${r}deg) scale(${s})`;
 
-export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
+export function BookStack({
+  displayMode,
+  shuffleToggle,
+}: {
+  shuffleToggle: boolean;
+  displayMode: BookDisplayMode;
+}) {
   const [books, setBooks] = useState(BOOKS);
   const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
   // @ts-ignore
@@ -79,6 +85,13 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
     from: from(i, displayMode),
   })); // Create a bunch of springs using the helpers above
 
+  useEffect(() => {
+    setBooks((prev) => {
+      const shuffled = shuffle(prev);
+      console.log("shuffling", shuffled);
+      return shuffled;
+    });
+  }, [shuffleToggle]);
   useEffect(() => {
     // @ts-ignore
     set((i: number) => {
@@ -143,11 +156,14 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
     }
   );
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
+  console.log("books", books);
+
   return (
     <>
       {
         // @ts-ignore
         props.map(({ x, y, rot, scale, minHeight, minWidth }, i) => {
+          console.log("render prop", i, books[i]);
           return (
             <animated.div
               key={i}
@@ -168,10 +184,6 @@ export function BookStack({ displayMode }: { displayMode: BookDisplayMode }) {
                 }}
               >
                 <Image
-                  css={css`
-                    /* min-height: ${BOOK_HEIGHT}px;
-                  min-width: ${BOOK_WIDTH}px; */
-                  `}
                   src={books[i]}
                   width={BOOK_WIDTH}
                   height={BOOK_HEIGHT}

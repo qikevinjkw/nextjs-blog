@@ -30,6 +30,7 @@ export default function Posts({
 }: {
   allPostsData: IPostsData[];
 }) {
+  console.log("allPostsData", allPostsData);
   return (
     <main
       css={css`
@@ -59,7 +60,7 @@ export default function Posts({
             flex-wrap: wrap;
           `}
         >
-          {allPostsData.map(({ id, date, title }, index) => (
+          {allPostsData.map(({ id, date, title, summary }, index) => (
             <Link href={`/posts/${id}`} passHref key={id}>
               <PostDiv>
                 <span
@@ -83,6 +84,9 @@ export default function Posts({
                     {date}
                   </h6>
                 </span>
+                <br />
+                {summary}
+                <br />
                 <br />
                 Click for more 📚
                 <br />
