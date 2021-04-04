@@ -1,14 +1,74 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { Card } from "../components/Card";
+import { firestore, MESSAGES_COLLECTION } from "../components/Firebase";
 
+interface Note {
+  message: string;
+  userId: string;
+}
 export default function Home() {
+  const [text, setText] = useState("");
+  const { data, refetch } = useQuery<Note[]>("notes", () => {
+    return firestore
+      .collection(MESSAGES_COLLECTION)
+      .get()
+      .then((querySnapshot) => {
+        console.log("querySnapshot", querySnapshot);
+        return querySnapshot.docs.map((doc) => doc.data());
+      });
+  });
+
+  const postMessage = () => {
+    const msg: Note = {
+      userId: "kevin",
+      message: text,
+    };
+    return firestore
+      .collection(MESSAGES_COLLECTION)
+      .add(msg)
+      .then(() => {
+        refetch();
+      })
+      .catch(function (error) {
+        console.error("Error writing new message to database", error);
+      });
+  };
+
+  useEffect(() => {
+    console.log("firestore ", data);
+  }, [data]);
+
   return (
     <main>
       <Head>
         <title>Kevin Qi</title>
       </Head>
-      <div>I'm not a cat</div>
+      <div>
+        Input:
+        <input
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+        />
+        <button onClick={postMessage}>Send</button>
+      </div>
+      <div
+        css={css`
+          padding: 10px;
+          display: flex;
+          flex: 1 1 auto;
+          flex-wrap: wrap;
+        `}
+      >
+        {data &&
+          data.map((note) => {
+            return <Card key={note.message} {...note}></Card>;
+          })}
+      </div>
     </main>
   );
 }

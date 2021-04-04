@@ -5,10 +5,12 @@ export function Footer() {
   return (
     <footer
       css={css`
-        position: relative;
         font-size: 12px;
         display: flex;
         justify-content: flex-end;
+        align-items: flex-end;
+        flex: 1 1 auto;
+        min-height: 60px;
       `}
     >
       Inspired by <a href="https://www.joshwcomeau.com/">Josh Comeau</a> 💖

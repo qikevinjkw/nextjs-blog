@@ -1,7 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import styled from "@emotion/styled";
 import Head from "next/head";
 
+const SpaceBetweenSpan = styled.span`
+  display: flex;
+  justify-content: space-between;
+`;
 export default function About() {
   return (
     <div
@@ -24,7 +29,10 @@ export default function About() {
       >
         <section>
           <h2>Experience</h2>
-          <h4>Citadel Securities, 2019 - Present New York, NY</h4>
+          <SpaceBetweenSpan>
+            <h4>Citadel Securities, 2019 - Present</h4>
+            <h4>New York, NY</h4>
+          </SpaceBetweenSpan>
           <span>UI Engineer</span>
           <ul>
             <li>
@@ -55,7 +63,11 @@ export default function About() {
               MySQL)
             </li>
           </ul>
-          <h4>BNY Mellon, 2017-2019 Jersey City, NJ</h4>
+          <SpaceBetweenSpan>
+            <h4>BNY Mellon, 2017-2019</h4>
+            <h4>Jersey City, NJ</h4>
+          </SpaceBetweenSpan>
+
           <span>Senior Specialist Engineer</span>
           <ul>
             <li>
@@ -75,14 +87,21 @@ export default function About() {
         </section>
         <section>
           <h2>Education</h2>
-          <h4>Harvard University, 2015-2016 Cambridge, MA</h4>
+          <SpaceBetweenSpan>
+            <h4>Harvard University, 2015-2016 </h4>
+            <h4>Cambridge, MA</h4>
+          </SpaceBetweenSpan>
           <span>M.S in Computational Science &amp; Engineering</span>
           <span>
             Coursework at Harvard: Operating Systems, Systems Security, Data
             Science, Parallel Computing, Monte Carlo Methods, Data
             Visualization, User Interface Design
           </span>
-          <h4>Stony Brook University, 2012-2015 Stony Brook, NY</h4>
+          <SpaceBetweenSpan>
+            <h4>Stony Brook University, 2012-2015</h4>
+
+            <h4>Stony Brook, NY</h4>
+          </SpaceBetweenSpan>
           <span>
             B.S. in Computer Science; GPA: 3.9/4.0 B.S. in Applied Mathematics
             and Statistics; GPA: 3.9/4.0
