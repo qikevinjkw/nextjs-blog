@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import color from "color";
 
-const BASE_LIGHT = "hsl(225deg, 25%, 95%)";
+const BASE_LIGHT = "white";
 const BASE_DARK = "#334f6f";
 export type ThemeMode = "light" | "dark";
 export const COLORS: Record<

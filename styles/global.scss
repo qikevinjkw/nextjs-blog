@@ -25,6 +25,9 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
   }
+  ::-webkit-scrollbar-corner {
+    background-color: var(--scrollbar-track-color);
+  }
 }
 
 #__next {

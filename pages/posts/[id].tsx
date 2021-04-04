@@ -6,6 +6,7 @@ import Head from "next/head";
 import { formatPostDate } from "../../lib/dateUtils";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import { ThumbsUp } from "../../components/ThumbsUp";
 
 export async function getStaticPaths() {
   // Return a list of possible value for id
@@ -27,7 +28,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData }: { postData: IPostsData }) {
-  console.log("postData.contentHtml", postData.contentString);
   return (
     <div
       css={css`
@@ -54,7 +54,6 @@ export default function Post({ postData }: { postData: IPostsData }) {
           <h2>{postData.title}</h2>
           {formatPostDate(postData.date)}
         </div>
-        <br />
         <div
           css={css`
             width: 600px;

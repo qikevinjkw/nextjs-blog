@@ -12,11 +12,9 @@ export function Layout(props) {
         width: 100%;
         display: flex;
         flex-direction: column;
-        /* align-items: center;
-        justify-content: center;  */
         background-color: var(--color-background);
         transition: background-color 0.5s ease;
-        overflow: auto;
+        overflow-y: scroll;
       `}
       animate={{
         transition: {
@@ -26,6 +24,7 @@ export function Layout(props) {
     >
       <Navbar />
       <main
+        className="main-content"
         css={css`
           width: 100%;
           height: 100%;

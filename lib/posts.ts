@@ -69,11 +69,6 @@ export async function getPostData(id: string) {
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
-  console.log(
-    "matterResult.content",
-    matterResult.content,
-    typeof matterResult.content
-  );
 
   // Combine the data with the id
   return {

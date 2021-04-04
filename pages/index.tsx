@@ -14,8 +14,8 @@ export default function Home() {
 
 /**
  *  
- * 
- * 
+ * Fade in when scroll with framer https://stackoverflow.com/questions/58958972/framer-motion-animate-when-element-is-in-view-when-you-scroll-to-element
+ * Realtime canvas https://www.youtube.com/watch?v=i6eP1Lw4gZk&ab_channel=TheCodingTrain
 const containerVariants: Variants = {
   initial: {
     backgroundColor: "rgba(255,255,255,1)",
