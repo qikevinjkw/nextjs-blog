@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/react";
 import { motion, Variants } from "framer-motion";
 import Head from "next/head";
+import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 
 export function Layout(props) {
@@ -32,6 +33,7 @@ export function Layout(props) {
       >
         {props.children}
       </main>
+      <Footer />
     </motion.div>
   );
 }
