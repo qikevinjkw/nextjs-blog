@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { PostTile } from "../../components/PostTile";
 import { getSortedPostsData, IPostsData } from "../../lib/posts";
+import { parse, compareDesc } from "date-fns";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -48,19 +49,26 @@ export default function Posts({
             flex-wrap: wrap;
           `}
         >
-          {allPostsData.map((postData, index) => (
-            <Link href={`/posts/${postData.id}`} passHref key={postData.id}>
-              <div
-                css={css`
-                  &:hover {
-                    z-index: 1;
-                  }
-                `}
-              >
-                <PostTile {...postData}></PostTile>
-              </div>
-            </Link>
-          ))}
+          {allPostsData
+            .sort((postA, postB) => {
+              return compareDesc(
+                parse(postA.date, "yyyy-MM-dd", new Date()),
+                parse(postB.date, "yyyy-MM-dd", new Date())
+              );
+            })
+            .map((postData, index) => (
+              <Link href={`/posts/${postData.id}`} passHref key={postData.id}>
+                <div
+                  css={css`
+                    &:hover {
+                      z-index: 1;
+                    }
+                  `}
+                >
+                  <PostTile {...postData}></PostTile>
+                </div>
+              </Link>
+            ))}
           {allPostsData.length % 2 === 1 ? (
             <PostTile
               cssStyles={css`
