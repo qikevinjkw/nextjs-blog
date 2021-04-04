@@ -41,7 +41,7 @@ const CoolButton = styled("button")<{
 `;
 export type BookDisplayMode = "stacked" | "flat";
 export default function Books() {
-  const [displayMode, setDisplayMode] = useState<BookDisplayMode>("flat");
+  const [displayMode, setDisplayMode] = useState<BookDisplayMode>("stacked");
   const [shuffle, setShuffle] = useState(false);
 
   return (

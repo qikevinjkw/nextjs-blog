@@ -8,6 +8,7 @@ export default function Home() {
       <Head>
         <title>Kevin Qi</title>
       </Head>
+      <div>I'm not a cat</div>
     </main>
   );
 }

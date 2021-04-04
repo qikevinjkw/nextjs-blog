@@ -44,7 +44,7 @@ const to = (i: number, displayMode: BookDisplayMode) => {
       ...getScreenMid(),
       scale: 1,
       rot: -10 + Math.random() * 20,
-      // delay: i * 100,
+      delay: i * 100,
     };
   }
 

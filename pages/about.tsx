@@ -19,6 +19,7 @@ export default function About() {
         css={css`
           width: 60%;
           height: 100%;
+          padding: 20px 0;
         `}
       >
         <section>
