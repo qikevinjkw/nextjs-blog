@@ -13,7 +13,8 @@ export function Footer() {
         min-height: 60px;
       `}
     >
-      Inspired by <a href="https://www.joshwcomeau.com/">Josh Comeau</a> 💖
+      Theme inspired by <a href="https://www.joshwcomeau.com/">Josh Comeau</a>{" "}
+      💖
     </footer>
   );
 }

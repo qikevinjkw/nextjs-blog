@@ -72,15 +72,8 @@ export default function Post({
           >
             {postData.title}
           </h2>
-          <span
-            css={css`
-              position: absolute;
-              right: 0;
-            `}
-          >
-            {formatPostDate(postData.date)}
-          </span>
         </div>
+        <span css={css``}>{formatPostDate(postData.date)}</span>
         <div
           css={css`
             width: 600px;
