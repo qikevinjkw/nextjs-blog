@@ -21,24 +21,24 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
   const postData = await getPostData(params.id);
-  const imgFile = await getImage("/images/" + postData.image);
+  // const imgFile = await getImage("/images/" + postData.image);
 
-  const placeholderPixelsCSS = await getPixelsCSS(imgFile);
+  // const placeholderPixelsCSS = await getPixelsCSS(imgFile);
 
   return {
     props: {
       postData,
-      placeholderPixelsCSS,
+      // placeholderPixelsCSS,
     },
   };
 }
 
 export default function Post({
   postData,
-  placeholderPixelsCSS,
-}: {
+}: // placeholderPixelsCSS,
+{
   postData: IPostsData;
-  placeholderPixelsCSS: PixelsCSS;
+  // placeholderPixelsCSS: PixelsCSS;
 }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   return (
@@ -89,7 +89,7 @@ export default function Post({
           `}
           className="kevin"
         >
-          {placeholderPixelsCSS && !imgLoaded && (
+          {/* {placeholderPixelsCSS && !imgLoaded && (
             <div
               className="kevin"
               // className={cx("absolute", "inset-0", "w-full", "h-full")}
@@ -102,7 +102,7 @@ export default function Post({
                 ...placeholderPixelsCSS,
               }}
             />
-          )}
+          )} */}
           <Image
             css={css`
               object-fit: contain;
