@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 // import "firebase/analytics";
 import "firebase/firestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAIWEMcDQd3065rU8bUrPeOkhz9fFaIhe8",
   authDomain: "kevin-nextjs.firebaseapp.com",
   projectId: "kevin-nextjs",

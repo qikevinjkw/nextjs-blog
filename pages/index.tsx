@@ -4,26 +4,57 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Card } from "../components/Card";
-import { firestore, MESSAGES_COLLECTION } from "../components/Firebase";
+import { MESSAGES_COLLECTION } from "../components/Firebase";
+import { useAppInit } from "../providers/AppInitProvider";
 
 interface Note {
   message: string;
   userId: string;
+  id: string;
 }
+
+type CreateNote = Pick<Note, "message" | "userId">;
 export default function Home() {
+  const { firestore } = useAppInit();
   const [text, setText] = useState("");
-  const { data, refetch } = useQuery<Note[]>("notes", () => {
-    return firestore
-      .collection(MESSAGES_COLLECTION)
-      .get()
-      .then((querySnapshot) => {
-        console.log("querySnapshot", querySnapshot);
-        return querySnapshot.docs.map((doc) => doc.data());
+  const [notes, setNotes] = useState<Note[]>([]);
+  useQuery<Note[]>(
+    "notes",
+    () => {
+      return firestore
+        .collection(MESSAGES_COLLECTION)
+        .get()
+        .then((querySnapshot) => {
+          return querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as CreateNote),
+          }));
+        });
+    },
+    {
+      onSuccess: (data) => {
+        setNotes(data);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (firestore) {
+      firestore.collection(MESSAGES_COLLECTION).onSnapshot((snapshot) => {
+        setNotes(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...(doc.data() as CreateNote),
+            };
+          })
+        );
       });
-  });
+    }
+  }, [firestore]);
 
   const postMessage = () => {
-    const msg: Note = {
+    const msg: CreateNote = {
       userId: "kevin",
       message: text,
     };
@@ -31,43 +62,73 @@ export default function Home() {
       .collection(MESSAGES_COLLECTION)
       .add(msg)
       .then(() => {
-        refetch();
+        console.log("success!");
       })
       .catch(function (error) {
         console.error("Error writing new message to database", error);
       });
   };
 
-  useEffect(() => {
-    console.log("firestore ", data);
-  }, [data]);
-
   return (
     <main>
       <Head>
         <title>Kevin Qi</title>
       </Head>
-      <div>
-        Input:
-        <input
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-        />
-        <button onClick={postMessage}>Send</button>
-      </div>
+
       <div
         css={css`
-          padding: 10px;
+          padding: 20px;
           display: flex;
+          align-items: center;
           flex: 1 1 auto;
-          flex-wrap: wrap;
+          flex-direction: column;
         `}
       >
-        {data &&
-          data.map((note) => {
-            return <Card key={note.message} {...note}></Card>;
-          })}
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <textarea
+            css={css`
+              width: 400px;
+              height: 64px;
+              resize: none;
+            `}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+          />
+          <button
+            css={css`
+              height: 50px;
+              border-radius: 5px;
+              width: 100px;
+              margin-left: 10px;
+              background: rgba(93, 93, 255, 1);
+              color: white;
+              font-size: 20px;
+              border: none;
+              cursor: pointer;
+            `}
+            onClick={postMessage}
+          >
+            Send
+          </button>
+        </div>
+        <div
+          css={css`
+            width: 1000px;
+            display: flex;
+            flex-wrap: wrap;
+          `}
+        >
+          {notes &&
+            notes.map((note) => {
+              return <Card key={note.id} {...note}></Card>;
+            })}
+        </div>
       </div>
     </main>
   );

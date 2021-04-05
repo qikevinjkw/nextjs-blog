@@ -24,7 +24,7 @@ export default function About() {
         css={css`
           width: 60%;
           height: 100%;
-          padding: 20px 0;
+          padding: 40px 0;
         `}
       >
         <section>
@@ -119,15 +119,18 @@ export default function About() {
             <b>Programming Languages:</b> TypeScript, JavaScript, HTML/CSS/Sass,
             Python, Java, C, SQL
           </span>
+          <br />
           <span>
             <b>Frameworks/Libraries:</b> React, NodeJS, react-testing-library,
             Ag-Grid, BlueprintJS, Redux, Electron, OpenFin, Emotion,
             TailwindCSS, RxJS, Angular, Grunt, jQuery
           </span>
+          <br />
           <span>
             <b>Development Tools:</b> Webpack, VSCode, ESLint, Prettier, Yarn,
             Chrome DevTools, Git, TeamCity, Jenkins, Splunk
           </span>
+          <br />
           <span>
             <b>Hobbies: </b>Badminton, Ping Pong, Swimming, Board Games, Improv
           </span>
