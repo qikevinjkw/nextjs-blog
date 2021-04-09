@@ -2,11 +2,17 @@
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useAppInit } from "../providers/AppInitProvider";
 
 function MobileLink({ href, name }: { href: string; name: string }) {
+  const { setMenuOn } = useAppInit();
+
   return (
     <Link href={href}>
       <div
+        onClick={() => {
+          setMenuOn(false);
+        }}
         css={css`
           width: 80%;
           height: 40px;

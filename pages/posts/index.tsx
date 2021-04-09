@@ -43,11 +43,9 @@ export default function Posts({
         <div
           css={css`
             display: grid;
-            /* justify-content: center; */
             list-style: none;
-            /* flex-wrap: wrap; */
             padding: 5px 40px;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 32px;
           `}
         >
