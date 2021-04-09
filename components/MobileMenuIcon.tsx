@@ -11,13 +11,27 @@ const svgVariants: Variants = {
     scale: 1,
   },
 };
-function getLineVariants(rotate: number): Variants {
+function getLineVariants({
+  rotate,
+  x,
+  y,
+}: {
+  rotate: number;
+  x?: number;
+  y?: number;
+}): Variants {
   return {
     initial: {
       rotate: 0,
+      x: 0,
+      y: 0,
+      scale: 1,
     },
     animate: {
       rotate,
+      x: x ? x : 0,
+      y: y ? y : 0,
+      scale: 1.1,
     },
   };
 }
@@ -48,16 +62,16 @@ export function MobileMenuIcon() {
         animate={menuOn ? "animate" : "initial"}
       >
         <motion.line
-          variants={getLineVariants(180)}
+          variants={getLineVariants({ rotate: -225, y: 5 })}
           x1="5"
-          y1="21.5"
+          y1="5.5"
           x2="26"
-          y2="21.5"
+          y2="5.5"
           stroke="#5370ff"
           strokeWidth="3"
         />
         <motion.line
-          variants={getLineVariants(90)}
+          variants={getLineVariants({ rotate: 90, x: -7 })}
           x1="5"
           y1="13.5"
           x2="26"
@@ -66,11 +80,11 @@ export function MobileMenuIcon() {
           strokeWidth="3"
         />
         <motion.line
-          variants={getLineVariants(-180)}
+          variants={getLineVariants({ rotate: 225, y: -5 })}
           x1="5"
-          y1="5.5"
+          y1="21.5"
           x2="26"
-          y2="5.5"
+          y2="21.5"
           stroke="#5370ff"
           strokeWidth="3"
         />
