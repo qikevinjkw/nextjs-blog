@@ -7,8 +7,8 @@ import { SoundIcon } from "./SoundIcon";
 export function IconBar() {
   return (
     <div
+      className="hide-mobile"
       css={css`
-        display: flex;
         align-items: center;
         width: 100px;
         > * {

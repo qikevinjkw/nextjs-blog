@@ -7,6 +7,7 @@ import { IconBar } from "../components/IconBar";
 import { Title } from "../components/Title";
 import { NAVBAR_HEIGHT } from "./constants";
 import { SquigglyLine } from "./SquigglyLine";
+import { MobileMenuIcon } from "./MobileMenuIcon";
 
 const Li = styled.li`
   margin: 0 10px;
@@ -59,6 +60,7 @@ export function Navbar() {
           css={css`
             margin-left: 80px;
           `}
+          className="hide-mobile"
         >
           <ul
             css={css`

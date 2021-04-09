@@ -15,7 +15,7 @@ export const COLORS: Record<
 > = {
   light: {
     background: color(BASE_LIGHT).darken(0.01).hsl().toString(),
-    post: BASE_LIGHT,
+    post: color(BASE_LIGHT).darken(0.1).hsl().toString(),
     text: "black",
     squigglyLine: "#5720ff",
   },

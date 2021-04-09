@@ -1,11 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { motion, Variants } from "framer-motion";
-import Head from "next/head";
+import { motion } from "framer-motion";
+import { useAppInit } from "../providers/AppInitProvider";
 import { Footer } from "./Footer";
+import { MobileMenu } from "./MobileMenu";
+import { MobileMenuIcon } from "./MobileMenuIcon";
 import { Navbar } from "./Navbar";
 
 export function Layout(props) {
+  const { menuOn } = useAppInit();
+
   return (
     <motion.div
       css={css`
@@ -23,6 +27,8 @@ export function Layout(props) {
         },
       }}
     >
+      {menuOn && <MobileMenu />}
+      <MobileMenuIcon />
       <Navbar />
       <main
         className="main-content"

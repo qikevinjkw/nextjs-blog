@@ -33,3 +33,14 @@ body {
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 480px) {
+  .hide-mobile {
+    display: none;
+  }
+}
+@media (min-width: 481px) {
+  .hide-desktop {
+    display: none;
+  }
+}

@@ -25,6 +25,8 @@ export const COLORS: Record<
 interface IAppInit {
   mounted: boolean;
   firestore: _firebase.firestore.Firestore;
+  menuOn: boolean;
+  setMenuOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const AppInitContext = React.createContext<IAppInit | undefined>(undefined);
 
@@ -33,6 +35,7 @@ export function AppInitProvider(props) {
   const [firestore, setFireStore] = useState<
     _firebase.firestore.Firestore | undefined
   >();
+  const [menuOn, setMenuOn] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -45,6 +48,8 @@ export function AppInitProvider(props) {
       value={{
         mounted,
         firestore,
+        menuOn,
+        setMenuOn,
       }}
     >
       {props.children}

@@ -42,11 +42,13 @@ export default function Posts({
       <section>
         <div
           css={css`
-            padding: 5px;
-            display: flex;
-            justify-content: center;
+            display: grid;
+            /* justify-content: center; */
             list-style: none;
-            flex-wrap: wrap;
+            /* flex-wrap: wrap; */
+            padding: 5px 40px;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 32px;
           `}
         >
           {allPostsData
@@ -58,15 +60,7 @@ export default function Posts({
             })
             .map((postData, index) => (
               <Link href={`/posts/${postData.id}`} passHref key={postData.id}>
-                <div
-                  css={css`
-                    &:hover {
-                      z-index: 1;
-                    }
-                  `}
-                >
-                  <PostTile {...postData}></PostTile>
-                </div>
+                <PostTile {...postData}></PostTile>
               </Link>
             ))}
           {allPostsData.length % 2 === 1 ? (
