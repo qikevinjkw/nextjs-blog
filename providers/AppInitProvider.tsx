@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import _firebase from "firebase/app";
 import { firebaseConfig } from "../components/Firebase";
 
@@ -36,6 +36,16 @@ export function AppInitProvider(props) {
     _firebase.firestore.Firestore | undefined
   >();
   const [menuOn, setMenuOn] = useState(false);
+  const audio = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audio.current = new Audio("/audio/double-click.wav");
+    audio.current.volume = 0.5;
+  }, []);
+
+  useEffect(() => {
+    audio.current?.play();
+  }, [menuOn]);
 
   useEffect(() => {
     setMounted(true);

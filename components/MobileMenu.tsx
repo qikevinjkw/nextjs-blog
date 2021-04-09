@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useAppInit } from "../providers/AppInitProvider";
+import { LightDarkModeIcon } from "./LightDarkModeIcon";
 
 function MobileLink({ href, name }: { href: string; name: string }) {
   const { setMenuOn } = useAppInit();
@@ -50,12 +51,14 @@ export function MobileMenu() {
         height: 100%;
         z-index: 2;
         background: var(--color-background);
+        transition: background-color 0.5s ease;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-top: 60px;
       `}
     >
+      <LightDarkModeIcon />
       <MobileLink href="/posts" name="Posts" />
       <MobileLink href="/books" name="Books" />
       <MobileLink href="/about" name="About" />

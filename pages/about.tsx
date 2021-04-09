@@ -21,10 +21,10 @@ export default function About() {
         <title>About Me</title>
       </Head>
       <div
+        className="center-width-desktop full-width-mobile"
         css={css`
-          width: 60%;
           height: 100%;
-          padding: 40px 0;
+          padding: 20px;
         `}
       >
         <section>

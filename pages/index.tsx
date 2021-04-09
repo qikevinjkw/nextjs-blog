@@ -75,7 +75,7 @@ export default function Home() {
         <title>Kevin Qi</title>
       </Head>
 
-      <div
+      {/* <div
         css={css`
           padding: 20px;
           display: flex;
@@ -129,7 +129,7 @@ export default function Home() {
               return <Card key={note.id} {...note}></Card>;
             })}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
