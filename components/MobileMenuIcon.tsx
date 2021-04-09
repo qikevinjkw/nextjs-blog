@@ -29,7 +29,7 @@ export function MobileMenuIcon() {
       className="hide-desktop"
       css={css`
         position: fixed;
-        top: 5px;
+        top: 15px;
         right: 15px;
         cursor: pointer;
         z-index: 3;
