@@ -1,8 +1,16 @@
-import { repeat } from "lodash";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useAppInit } from "../providers/AppInitProvider";
+import styled from "@emotion/styled";
 
+const ColDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
 interface LikesResp {
   message?: string;
   hits?: number;
@@ -20,6 +28,7 @@ export function LikeButton({ slug }: { slug: string }) {
   });
   const [numLikes, setNumLikes] = useState<number | undefined>();
   const [hasLiked, setHasLiked] = useState(false);
+  const [justLiked, setJustLiked] = useState(false);
 
   useEffect(() => {
     console.log("like data", data);
@@ -31,7 +40,23 @@ export function LikeButton({ slug }: { slug: string }) {
   }, [data]);
 
   return numLikes !== undefined ? (
-    <div>
+    <ColDiv
+      css={css`
+        span::after {
+          content: "+1";
+          color: transparent;
+          transition: all 0.4s ease-in-out;
+          font-size: 12px;
+          position: absolute;
+          right: 26px;
+          top: 32px;
+        }
+        span.just-liked::after {
+          color: #08ef08;
+          transition: all 0.3s ease-in-out;
+        }
+      `}
+    >
       <button
         disabled={hasLiked}
         onClick={() => {
@@ -39,6 +64,10 @@ export function LikeButton({ slug }: { slug: string }) {
             setHasLiked(true);
             setNumLikes((prev) => prev + 1);
           }
+          setJustLiked(true);
+          setTimeout(() => {
+            setJustLiked(false);
+          }, 700);
           fetch(`/api/register-hit?slug=${slug}&clientId=${clientId}`)
             .then((resp) => resp.json())
             .then((resp: LikesResp) => {
@@ -51,7 +80,7 @@ export function LikeButton({ slug }: { slug: string }) {
       >
         Like
       </button>{" "}
-      {numLikes}
-    </div>
+      <span className={justLiked ? "just-liked" : ""}>{numLikes}</span>
+    </ColDiv>
   ) : null;
 }

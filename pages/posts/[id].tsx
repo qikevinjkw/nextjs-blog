@@ -54,8 +54,22 @@ export default function Post({
         <title>{postData.title}</title>
       </Head>
       <div
+        className="hide-mobile"
         css={css`
-          width: 600px;
+          height: 200px;
+          position: sticky;
+          top: 100px;
+          padding: 10px 30px 10px 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        `}
+      >
+        <LikeButton slug={postData.id} />
+      </div>
+      <div
+        css={css`
+          width: clamp(300px, 60%, 64ch);
         `}
       >
         <div
@@ -75,27 +89,19 @@ export default function Post({
           </h2>
         </div>
         <span css={css``}>{formatPostDate(postData.date)}</span>
-        <div
-          css={css`
-            width: 600px;
-            height: 400px;
-            position: relative;
-          `}
-          className="kevin"
-        >
-          <LikeButton slug={postData.id} />
-          <Image
-            css={css`
-              object-fit: contain;
-            `}
-            width={600}
-            height={400}
-            onLoad={() => {
-              setImgLoaded(true);
-            }}
-            src={`/images/${postData.image}`}
-          />
-        </div>
+
+        <Image
+          // css={css`
+          //   object-fit: contain;
+          // `}
+          width={700}
+          height={500}
+          layout="responsive"
+          onLoad={() => {
+            setImgLoaded(true);
+          }}
+          src={`/images/${postData.image}`}
+        />
         <br />
         <ReactMarkdown>{postData.contentString}</ReactMarkdown>
       </div>

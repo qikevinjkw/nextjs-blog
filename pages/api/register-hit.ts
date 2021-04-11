@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     q.Exists(q.Match(q.Index("clientId-slug"), clientId, slug))
   );
   if (userHasLiked) {
-    return res.status(200).json();
+    return res.status(200).json({});
   }
   console.log("create like history", clientId, slug);
   await client.query<IHitsBySlug>(
