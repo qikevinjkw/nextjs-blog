@@ -91,9 +91,6 @@ export default function Post({
         <span css={css``}>{formatPostDate(postData.date)}</span>
 
         <Image
-          // css={css`
-          //   object-fit: contain;
-          // `}
           width={700}
           height={500}
           layout="responsive"

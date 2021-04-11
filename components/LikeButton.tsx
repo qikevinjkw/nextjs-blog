@@ -49,6 +49,7 @@ export function LikeButton({ slug }: { slug: string }) {
         `/api/get-hit?slug=${context.queryKey}&clientId=${clientId}`
       ).then((resp) => resp.json());
     },
+    refetchInterval: 5,
   });
   const [numLikes, setNumLikes] = useState<number | undefined>();
   const [hasLiked, setHasLiked] = useState(false);

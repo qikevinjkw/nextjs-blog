@@ -23,7 +23,6 @@ export default async function handler(req, res) {
   const docExists = await client.query(
     q.Exists(q.Match(q.Index(HITS_BY_SLUG_COLLECTION), slug))
   );
-  console.log("docExists", docExists);
   if (!docExists) {
     await client.query<IHitsBySlug>(
       q.Create(q.Collection("hits"), {

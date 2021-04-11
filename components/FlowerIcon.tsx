@@ -28,6 +28,7 @@ export function FlowerIcon({ onClick }: { onClick: () => void }) {
       }}
       css={css`
         cursor: pointer;
+        transform-origin: 20px 20px 0px !important;
       `}
       animate={"animate"}
       width="40"
