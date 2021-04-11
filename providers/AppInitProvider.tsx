@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import _firebase from "firebase/app";
 import { firebaseConfig } from "../components/Firebase";
+import { v4 as uuidv4 } from "uuid";
 
 export type ThemeMode = "light" | "dark";
 export const COLORS: Record<
@@ -23,12 +24,14 @@ export const COLORS: Record<
   },
 };
 interface IAppInit {
+  clientId: string;
   mounted: boolean;
   firestore: _firebase.firestore.Firestore;
   menuOn: boolean;
   setMenuOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const AppInitContext = React.createContext<IAppInit | undefined>(undefined);
+const CLIENT_RAND_ID_KEY = "CLIENT_ID";
 
 export function AppInitProvider(props) {
   const [mounted, setMounted] = useState(false);
@@ -37,6 +40,18 @@ export function AppInitProvider(props) {
   >();
   const [menuOn, setMenuOn] = useState(false);
   const audio = useRef<HTMLAudioElement | null>(null);
+  const [clientId, setClientId] = useState("");
+
+  useEffect(() => {
+    const storedId = localStorage.getItem(CLIENT_RAND_ID_KEY);
+    if (!storedId) {
+      const newId = uuidv4();
+      localStorage.setItem(CLIENT_RAND_ID_KEY, newId);
+      setClientId(uuidv4());
+    } else {
+      setClientId(storedId);
+    }
+  }, []);
 
   useEffect(() => {
     audio.current = new Audio("/audio/double-click.wav");
@@ -44,7 +59,9 @@ export function AppInitProvider(props) {
   }, []);
 
   useEffect(() => {
-    audio.current?.play();
+    if (menuOn) {
+      audio.current?.play();
+    }
   }, [menuOn]);
 
   useEffect(() => {
@@ -56,6 +73,7 @@ export function AppInitProvider(props) {
   return firestore ? (
     <AppInitContext.Provider
       value={{
+        clientId,
         mounted,
         firestore,
         menuOn,

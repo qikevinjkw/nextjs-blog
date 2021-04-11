@@ -38,15 +38,12 @@ body {
   .hide-mobile {
     display: none;
   }
-  .full-width-mobile {
-    width: 100%;
-  }
+}
+.test {
+  width: clamp(300px, 60%, 800px);
 }
 @media (min-width: 481px) {
   .hide-desktop {
     display: none;
-  }
-  .center-width-desktop {
-    width: 60%;
   }
 }

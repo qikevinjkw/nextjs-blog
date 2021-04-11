@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import { getImage } from "@plaiceholder/next";
 import { getPixelsCSS, PixelsCSS } from "@plaiceholder/css";
+import { LikeButton } from "../../components/LikeButton";
 
 export async function getStaticPaths() {
   // Return a list of possible value for id
@@ -82,20 +83,7 @@ export default function Post({
           `}
           className="kevin"
         >
-          {/* {placeholderPixelsCSS && !imgLoaded && (
-            <div
-              className="kevin"
-              // className={cx("absolute", "inset-0", "w-full", "h-full")}
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                filter: "blur(10px)",
-                // transform: "scale(.95)",
-                ...placeholderPixelsCSS,
-              }}
-            />
-          )} */}
+          <LikeButton slug={postData.id} />
           <Image
             css={css`
               object-fit: contain;

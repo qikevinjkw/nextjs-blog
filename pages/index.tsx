@@ -74,7 +74,17 @@ export default function Home() {
       <Head>
         <title>Kevin Qi</title>
       </Head>
-
+      <button
+        onClick={() => {
+          fetch("/api/register-hit?slug=test")
+            .then((resp) => resp.json())
+            .then((resp) => {
+              console.log("resp", resp);
+            });
+        }}
+      >
+        Increment
+      </button>
       {/* <div
         css={css`
           padding: 20px;

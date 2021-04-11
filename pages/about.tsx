@@ -21,7 +21,7 @@ export default function About() {
         <title>About Me</title>
       </Head>
       <div
-        className="center-width-desktop full-width-mobile"
+        className="test"
         css={css`
           height: 100%;
           padding: 20px;

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import { useRef, forwardRef } from "react";
 import { animated, interpolate, useSpring } from "react-spring";
 
@@ -25,11 +26,13 @@ export const PostTile = forwardRef(function (
     title,
     date,
     summary,
+    href,
   }: {
     title?: string;
     date?: string;
     summary?: string;
     cssStyles?: SerializedStyles;
+    href?: string;
   },
   ref
 ) {
@@ -38,9 +41,11 @@ export const PostTile = forwardRef(function (
     config: { mass: 5, tension: 300, friction: 100 },
   }));
   const divRef = useRef<HTMLDivElement>();
+  const router = useRouter();
 
   return (
     <PostDiv
+      onClick={() => router.push(href)}
       ref={divRef}
       css={[
         cssStyles,
@@ -53,6 +58,7 @@ export const PostTile = forwardRef(function (
         `,
       ]}
       onMouseMove={({ clientX, clientY, ...e }) => {
+        // @ts-ignore
         const { x, y, width, height } = divRef.current?.getBoundingClientRect();
         const [relativeX, relativeY] = [clientX - x, clientY - y];
         return set({ xys: calc(relativeX, relativeY, width, height) });

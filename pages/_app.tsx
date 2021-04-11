@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Layout } from "../components/Layout";
 import { AppInitProvider } from "../providers/AppInitProvider";
