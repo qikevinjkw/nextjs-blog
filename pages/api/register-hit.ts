@@ -21,12 +21,12 @@ export default async function handler(req, res) {
     });
   }
 
-  const userHasLiked = await client.query(
-    q.Exists(q.Match(q.Index("clientId-slug"), clientId, slug))
-  );
-  if (userHasLiked) {
-    return res.status(200).json({});
-  }
+  // const userHasLiked = await client.query(
+  //   q.Exists(q.Match(q.Index("clientId-slug"), clientId, slug))
+  // );
+  // if (userHasLiked) {
+  //   return res.status(200).json({});
+  // }
   console.log("create like history", clientId, slug);
   await client.query<IHitsBySlug>(
     q.Create(q.Collection("like-history"), {

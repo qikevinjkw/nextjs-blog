@@ -52,7 +52,7 @@ export function LikeButton({ slug }: { slug: string }) {
     refetchInterval: 5,
   });
   const [numLikes, setNumLikes] = useState<number | undefined>();
-  const [hasLiked, setHasLiked] = useState(false);
+  //   const [hasLiked, setHasLiked] = useState(false);
   const [justLiked, setJustLiked] = useState(false);
   const [numTimesLiked, setNumTimesLiked] = useState(0);
 
@@ -60,16 +60,16 @@ export function LikeButton({ slug }: { slug: string }) {
     console.log("like data", data);
     if (data) {
       setNumLikes(data.hits);
-      setHasLiked(data.userHasLiked);
+      //   setHasLiked(data.userHasLiked);
       console.log("has liked", data.userHasLiked);
     }
   }, [data]);
 
   const handleClick = () => {
-    if (!hasLiked) {
-      setHasLiked(true);
-      setNumLikes((prev) => prev + 1);
-    }
+    // if (!hasLiked) {
+    //   setHasLiked(true);
+    setNumLikes((prev) => prev + 1);
+    // }
     setJustLiked(true);
     setTimeout(() => {
       setJustLiked(false);
