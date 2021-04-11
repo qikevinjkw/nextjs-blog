@@ -103,6 +103,14 @@ export default function Post({
           src={`/images/${postData.image}`}
         />
         <br />
+        <div
+          className="hide-desktop"
+          css={css`
+            display: flex;
+          `}
+        >
+          <LikeButton slug={postData.id} />
+        </div>
         <ReactMarkdown>{postData.contentString}</ReactMarkdown>
       </div>
     </div>

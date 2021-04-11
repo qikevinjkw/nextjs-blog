@@ -160,6 +160,7 @@ const moonVariants: Variants = {
   },
   hover: {
     fill: "white",
+    rotate: 25,
   },
   visible: {
     opacity: 1,

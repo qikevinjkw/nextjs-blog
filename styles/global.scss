@@ -36,7 +36,7 @@ body {
 
 @media (max-width: 480px) {
   .hide-mobile {
-    display: none;
+    display: none !important;
   }
 }
 .test {
@@ -44,6 +44,6 @@ body {
 }
 @media (min-width: 481px) {
   .hide-desktop {
-    display: none;
+    display: none !important;
   }
 }

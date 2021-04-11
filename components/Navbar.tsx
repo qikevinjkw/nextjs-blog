@@ -39,7 +39,7 @@ export function Navbar() {
     <div
       css={css`
         position: sticky;
-        z-index: 100;
+        z-index: 5;
         top: 0;
         width: 100%;
         min-height: ${NAVBAR_HEIGHT}px;
