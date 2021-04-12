@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useAppInit } from "../providers/AppInitProvider";
 import styled from "@emotion/styled";
@@ -55,17 +55,26 @@ export function LikeButton({ slug }: { slug: string }) {
   //   const [hasLiked, setHasLiked] = useState(false);
   const [justLiked, setJustLiked] = useState(false);
   const [numTimesLiked, setNumTimesLiked] = useState(0);
+  const updateLikeCount = useCallback((toSetLikeCount: number) => {
+    setNumLikes((curLikeCount) => {
+      if (curLikeCount === undefined || toSetLikeCount > curLikeCount) {
+        return toSetLikeCount;
+      }
+      return curLikeCount;
+    });
+  }, []);
 
   useEffect(() => {
-    console.log("like data", data);
     if (data) {
-      setNumLikes(data.hits);
-      //   setHasLiked(data.userHasLiked);
-      console.log("has liked", data.userHasLiked);
+      console.log("update like to ", data.hits);
+      updateLikeCount(data.hits);
     }
   }, [data]);
 
   const handleClick = () => {
+    if (justLiked) {
+      return;
+    }
     // if (!hasLiked) {
     //   setHasLiked(true);
     setNumLikes((prev) => prev + 1);
@@ -78,9 +87,8 @@ export function LikeButton({ slug }: { slug: string }) {
     fetch(`/api/register-hit?slug=${slug}&clientId=${clientId}`)
       .then((resp) => resp.json())
       .then((resp: LikesResp) => {
-        console.log("resp", resp);
         if (resp.hits) {
-          setNumLikes(resp.hits);
+          updateLikeCount(resp.hits);
         }
       });
   };
@@ -88,19 +96,10 @@ export function LikeButton({ slug }: { slug: string }) {
   return numLikes !== undefined ? (
     <ColDiv
       css={css`
-        span::after {
-          content: "+1";
-          color: transparent;
-          transition: all 0.4s ease-in-out;
-          font-size: 12px;
-          position: absolute;
-          right: 23px;
-          top: 50px;
-        }
-        span.just-liked::after {
-          color: #08ef08;
-          transition: all 0.3s ease-in-out;
-        }
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
       `}
     >
       <FlowerIcon onClick={handleClick} />

@@ -16,7 +16,6 @@ const getFlowerVariants = (rotate: number): Variants => {
 };
 export function FlowerIcon({ onClick }: { onClick: () => void }) {
   const [rotate, setRotate] = useState(0);
-  console.log("rotate", rotate);
   return (
     <motion.svg
       variants={getFlowerVariants(rotate)}

@@ -21,18 +21,17 @@ export default async function handler(req, res) {
     });
   }
 
-  // const userHasLiked = await client.query(
-  //   q.Exists(q.Match(q.Index("clientId-slug"), clientId, slug))
-  // );
-  // if (userHasLiked) {
-  //   return res.status(200).json({});
-  // }
-  console.log("create like history", clientId, slug);
-  await client.query<IHitsBySlug>(
-    q.Create(q.Collection("like-history"), {
-      data: { clientId, slug },
-    })
+  const userHasLiked = await client.query(
+    q.Exists(q.Match(q.Index("clientId-slug"), clientId, slug))
   );
+  if (!userHasLiked) {
+    await client.query<IHitsBySlug>(
+      q.Create(q.Collection("like-history"), {
+        data: { clientId, slug },
+      })
+    );
+    return res.status(200).json({});
+  }
 
   const docExists = await client.query(
     q.Exists(q.Match(q.Index(HITS_BY_SLUG_COLLECTION), slug))
