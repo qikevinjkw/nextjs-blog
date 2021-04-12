@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import { motion, Variants } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const getFlowerVariants = (rotate: number): Variants => {
   return {
@@ -16,14 +16,23 @@ const getFlowerVariants = (rotate: number): Variants => {
 };
 export function FlowerIcon({ onClick }: { onClick: () => void }) {
   const [rotate, setRotate] = useState(0);
+  const audio = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audio.current = new Audio("/audio/flower-click.wav");
+    audio.current.volume = 0.5;
+  }, []);
+
   return (
     <motion.svg
       variants={getFlowerVariants(rotate)}
-      whileHover={{ scale: 1.1, rotate: rotate - 15 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.1, rotate }}
+      whileTap={{ scale: 0.95, rotate }}
       onClick={() => {
         setRotate((prev) => prev + 360);
         onClick();
+        const audio = new Audio("/audio/flower-click.wav");
+        audio.play();
       }}
       css={css`
         cursor: pointer;

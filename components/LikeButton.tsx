@@ -69,9 +69,6 @@ export function LikeButton({ slug }: { slug: string }) {
   }, [data]);
 
   const handleClick = () => {
-    if (justLiked) {
-      return;
-    }
     setNumLikes((prev) => prev + 1);
     setJustLiked(true);
     setTimeout(() => {
