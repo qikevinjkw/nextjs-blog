@@ -49,12 +49,9 @@ export function LikeButton({ slug }: { slug: string }) {
         `/api/get-hit?slug=${context.queryKey}&clientId=${clientId}`
       ).then((resp) => resp.json());
     },
-    refetchInterval: 5,
   });
   const [numLikes, setNumLikes] = useState<number | undefined>();
-  //   const [hasLiked, setHasLiked] = useState(false);
   const [justLiked, setJustLiked] = useState(false);
-  const [numTimesLiked, setNumTimesLiked] = useState(0);
   const updateLikeCount = useCallback((toSetLikeCount: number) => {
     setNumLikes((curLikeCount) => {
       if (curLikeCount === undefined || toSetLikeCount > curLikeCount) {
@@ -75,22 +72,12 @@ export function LikeButton({ slug }: { slug: string }) {
     if (justLiked) {
       return;
     }
-    // if (!hasLiked) {
-    //   setHasLiked(true);
     setNumLikes((prev) => prev + 1);
-    // }
     setJustLiked(true);
     setTimeout(() => {
       setJustLiked(false);
     }, 600);
-    setNumTimesLiked((prev) => prev + 1);
-    fetch(`/api/register-hit?slug=${slug}&clientId=${clientId}`)
-      .then((resp) => resp.json())
-      .then((resp: LikesResp) => {
-        if (resp.hits) {
-          updateLikeCount(resp.hits);
-        }
-      });
+    fetch(`/api/register-hit?slug=${slug}&clientId=${clientId}`);
   };
 
   return numLikes !== undefined ? (
