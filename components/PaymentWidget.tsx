@@ -69,7 +69,7 @@ export function PaymentWidget() {
                 css={css`
                   position: absolute;
                   bottom: 50px;
-                  left: ${-20 + i * 50}px;
+                  left: ${-20 + i * 56}px;
                   opacity: ${targetPaymentIndex === i && showAll ? 1 : 0};
                   transition: all 0.2s ease-in;
                 `}
