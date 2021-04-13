@@ -5,5 +5,6 @@ summary: "Stuff I still need to do for this site"
 image: "todolist.png"
 ---
 
+- navbar styling is off with that horizontal scroll bar
 - Think of what to put on the main page
 - make book clickable, it floats to the middle, turns around and shows summary or your opinion on it

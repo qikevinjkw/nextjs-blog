@@ -16,12 +16,6 @@ const getFlowerVariants = (rotate: number): Variants => {
 };
 export function FlowerIcon({ onClick }: { onClick: () => void }) {
   const [rotate, setRotate] = useState(0);
-  const audio = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    audio.current = new Audio("/audio/flower-click.wav");
-    audio.current.volume = 0.5;
-  }, []);
 
   return (
     <motion.svg
@@ -32,6 +26,7 @@ export function FlowerIcon({ onClick }: { onClick: () => void }) {
         setRotate((prev) => prev + 360);
         onClick();
         const audio = new Audio("/audio/flower-click.wav");
+        audio.volume = 0.4;
         audio.play();
       }}
       css={css`

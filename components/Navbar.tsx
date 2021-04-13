@@ -34,6 +34,17 @@ function NavbarLink({ href, name }: { href: string; name: string }) {
   );
 }
 
+export const Routes: { href: string; name: string }[] = [
+  {
+    href: "/posts",
+    name: "Posts",
+  },
+  {
+    href: "/about",
+    name: "About",
+  },
+];
+
 export function Navbar() {
   return (
     <div
@@ -41,13 +52,13 @@ export function Navbar() {
         position: sticky;
         z-index: 5;
         top: 0;
-        width: 100%;
         min-height: ${NAVBAR_HEIGHT}px;
-        background: var(--color-background);
+        background: var(--color-background-dark);
         transition: background-color 0.5s ease;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 10px;
       `}
     >
       <div
@@ -70,9 +81,9 @@ export function Navbar() {
               list-style: none;
             `}
           >
-            <NavbarLink href="/posts" name="Posts" />
-            <NavbarLink href="/books" name="Books" />
-            <NavbarLink href="/about" name="About" />
+            {Routes.map(({ href, name }) => {
+              return <NavbarLink key={href} href={href} name={name} />;
+            })}
           </ul>
         </nav>
       </div>

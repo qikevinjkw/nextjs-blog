@@ -48,6 +48,8 @@ export default function Post({
         width: 100%;
         display: flex;
         justify-content: center;
+        font-size: 19px;
+        line-height: 1.6;
       `}
     >
       <Head>
@@ -69,7 +71,8 @@ export default function Post({
       </div>
       <div
         css={css`
-          width: clamp(300px, 60%, 64ch);
+          width: clamp(300px, 64ch, 64ch);
+          padding: 0 20px;
         `}
       >
         <div
@@ -90,15 +93,17 @@ export default function Post({
         </div>
         <span css={css``}>{formatPostDate(postData.date)}</span>
 
-        <Image
-          width={700}
-          height={500}
-          layout="responsive"
-          onLoad={() => {
-            setImgLoaded(true);
-          }}
-          src={`/images/${postData.image}`}
-        />
+        {postData.image && (
+          <Image
+            width={700}
+            height={500}
+            layout="responsive"
+            onLoad={() => {
+              setImgLoaded(true);
+            }}
+            src={`/images/${postData.image}`}
+          />
+        )}
         <br />
         <div
           className="hide-desktop"

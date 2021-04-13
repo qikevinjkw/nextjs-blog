@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import { MobileMenu } from "./MobileMenu";
 import { MobileMenuIcon } from "./MobileMenuIcon";
 import { Navbar } from "./Navbar";
+import { PaymentWidget } from "./PaymentWidget";
 
 export function Layout(props) {
   const { menuOn } = useAppInit();
@@ -27,6 +28,7 @@ export function Layout(props) {
         },
       }}
     >
+      <PaymentWidget />
       {menuOn && <MobileMenu />}
       <MobileMenuIcon />
       <Navbar />

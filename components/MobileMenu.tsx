@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useAppInit } from "../providers/AppInitProvider";
 import { LightDarkModeIcon } from "./LightDarkModeIcon";
+import { Routes } from "./Navbar";
 
 function MobileLink({ href, name }: { href: string; name: string }) {
   const { setMenuOn } = useAppInit();
@@ -59,9 +60,10 @@ export function MobileMenu() {
       `}
     >
       <LightDarkModeIcon />
-      <MobileLink href="/posts" name="Posts" />
-      <MobileLink href="/books" name="Books" />
-      <MobileLink href="/about" name="About" />
+
+      {Routes.map(({ href, name }) => {
+        return <MobileLink key={href} href={href} name={name} />;
+      })}
     </motion.div>
   );
 }

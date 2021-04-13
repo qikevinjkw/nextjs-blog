@@ -74,72 +74,15 @@ export default function Home() {
       <Head>
         <title>Kevin Qi</title>
       </Head>
-      <button
-        onClick={() => {
-          fetch("/api/register-hit?slug=test")
-            .then((resp) => resp.json())
-            .then((resp) => {
-              console.log("resp", resp);
-            });
-        }}
-      >
-        Increment
-      </button>
-      {/* <div
-        css={css`
-          padding: 20px;
-          display: flex;
-          align-items: center;
-          flex: 1 1 auto;
-          flex-direction: column;
-        `}
-      >
-        <div
-          css={css`
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <textarea
-            css={css`
-              width: 400px;
-              height: 64px;
-              resize: none;
-            `}
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          />
-          <button
-            css={css`
-              height: 50px;
-              border-radius: 5px;
-              width: 100px;
-              margin-left: 10px;
-              background: rgba(93, 93, 255, 1);
-              color: white;
-              font-size: 20px;
-              border: none;
-              cursor: pointer;
-            `}
-            onClick={postMessage}
-          >
-            Send
-          </button>
-        </div>
-        <div
-          css={css`
-            width: 1000px;
-            display: flex;
-            flex-wrap: wrap;
-          `}
-        >
-          {notes &&
-            notes.map((note) => {
-              return <Card key={note.id} {...note}></Card>;
-            })}
-        </div>
-      </div> */}
+      New Habits to Develop
+      <ul>
+        <li>Read 10min a day</li>
+        <li>Code side project two days a week for 30min each</li>
+        <li>
+          Write 10 ideas about new habits, new projects, new investments, new
+          video ideas, new articles, etc each day
+        </li>
+      </ul>
     </main>
   );
 }

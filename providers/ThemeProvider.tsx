@@ -9,18 +9,21 @@ export const COLORS: Record<
   {
     text: string;
     background: string;
+    backgroundDark: string;
     post: string;
     squigglyLine: string;
   }
 > = {
   light: {
     background: color(BASE_LIGHT).darken(0.01).hsl().toString(),
+    backgroundDark: "#dbe6ff",
     post: color(BASE_LIGHT).darken(0.1).hsl().toString(),
     text: "black",
     squigglyLine: "#5720ff",
   },
   dark: {
     background: color(BASE_DARK).darken(0.5).hsl().toString(),
+    backgroundDark: "#121c27",
     post: BASE_DARK,
     text: "white",
     squigglyLine: "#FFEE51",
@@ -79,9 +82,16 @@ export function ThemeProvider(props) {
       "--color-text",
       theme === "light" ? COLORS.light.text : COLORS.dark.text
     );
+    root.style.setProperty("--scrollbar-color", "grey");
     root.style.setProperty(
       "--color-background",
       theme === "light" ? COLORS.light.background : COLORS.dark.background
+    );
+    root.style.setProperty(
+      "--color-background-dark",
+      theme === "light"
+        ? COLORS.light.backgroundDark
+        : COLORS.dark.backgroundDark
     );
     root.style.setProperty(
       "--color-post",
