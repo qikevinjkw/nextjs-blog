@@ -10,3 +10,7 @@ date: "2021-04-12"
 - buymealunch/buymeadinner/treatmetodinner/bookasessionwithme - an opensource dev, or creator has a calendar of available slots. You can choose to book times with them and they can set an amount. Make a frictionless widget they can embed, some quick url. Write reviews on them.⭐
 - sign in book. Tiny widget where users can post on a shared wall.
 - embeddable widget with all your social media handles
+- buymeagift - widget that let's you purchase an item on their amazon wish list
+- I Often wish I could purchase swag from Vercel, or youtubers, or other open source projects. Because I'm proud to use their stuff, and want to help them. BUT, I'm not generous enough to do a recurring donation. I'd love to pay and buy something even if it's a bit more expensive. So not reucrring. And I get something back. Swag.
+- Creators set payment milestones. They don't get the money until a milestone is reached
+- QRSavings - You put money into our account. And we lock it away. We give it back to you with zero interest after a year.
