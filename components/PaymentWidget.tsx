@@ -13,8 +13,8 @@ const RoundImg = styled.img`
 const apps = ["venmo.png", "cashapp.png", "venmo.png"];
 
 export function PaymentWidget() {
-  const [showAll, setShowAll] = useState(true);
-  const [targetPaymentIndex, setTargetPaymentIndex] = useState(0);
+  const [showAll, setShowAll] = useState(false);
+  const [targetPaymentIndex, setTargetPaymentIndex] = useState(-1);
   return (
     <div
       css={css`
@@ -40,7 +40,7 @@ export function PaymentWidget() {
     >
       {apps.map((app, i) => {
         return (
-          <>
+          <div key={i}>
             <RoundImg
               css={css`
                 z-index: ${i === 0 ? 99 : 2};
@@ -78,7 +78,7 @@ export function PaymentWidget() {
                 src="/images/qrcode.jpg"
               />
             )}
-          </>
+          </div>
         );
       })}
 
