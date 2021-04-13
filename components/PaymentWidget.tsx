@@ -22,7 +22,7 @@ export function PaymentWidget() {
         left: 20px;
         bottom: 20px;
         border-radius: 100%;
-
+        will-change: transform;
         /* background: transparent; */
         z-index: 99;
         cursor: pointer;
@@ -45,6 +45,7 @@ export function PaymentWidget() {
                 z-index: ${i === 0 ? 99 : 2};
                 opacity: ${i === 0 ? 1 : showAll ? 1 : 0};
                 transform: ${showAll ? `translateX(${60 * i}px)` : 0};
+                will-change: transform;
                 transition: all 0.5s ease-in-out;
                 box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 8px;
               `}
@@ -71,6 +72,7 @@ export function PaymentWidget() {
                 bottom: 50px;
                 left: ${-20 + i * 56}px;
                 opacity: ${targetPaymentIndex === i && showAll ? 1 : 0};
+                will-change: transform;
                 transition: all 0.3s ease-in-out;
               `}
               width={100}
