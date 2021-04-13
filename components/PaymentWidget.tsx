@@ -10,64 +10,79 @@ const RoundImg = styled.img`
   left: 0;
   top: 0;
 `;
+const apps = ["venmo.png", "cashapp.png", "venmo.png"];
 
 export function PaymentWidget() {
-  const [showAll, setShowAll] = useState(false);
-  const [targetPaymentIndex, setTargetPaymentIndex] = useState(-1);
+  const [showAll, setShowAll] = useState(true);
+  const [targetPaymentIndex, setTargetPaymentIndex] = useState(0);
   return (
     <div
       css={css`
-        display: flex;
+        display: inline-block;
         position: fixed;
         left: 20px;
-        bottom: 70px;
+        bottom: 20px;
         /* border-radius: 30%;
         box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 8px; */
         z-index: 99;
         cursor: pointer;
-        /* height: 40px; */
-        /* max-width: 200px; */
+        height: 50px;
         width: ${showAll ? "160px" : "50px"};
-        /* padding: 5px; */
         transition: width 0.5s ease-in-out;
       `}
       onMouseLeave={() => {
+        console.log("mouse leave");
         setShowAll(false);
       }}
       onMouseEnter={(e) => {
-        // console.log("mouse enter", e.clientX, e.clientY);
         setShowAll(true);
       }}
     >
-      <RoundImg
-        css={css`
-          z-index: 99;
-        `}
-        onMouseEnter={(event: any) => {
-          setTargetPaymentIndex(0);
-        }}
-        onMouseLeave={() => {
-          setTargetPaymentIndex(-1);
-        }}
-        src="/images/venmo.png"
-        width={50}
-        height={50}
-      />
-      {targetPaymentIndex !== -1 && (
-        <img
-          css={css`
-            position: absolute;
-            bottom: 0px;
-            left: -20px;
-            opacity: ${targetPaymentIndex === 0 && showAll ? 1 : 0};
-            transition: all 0.2s ease-in;
-          `}
-          width={100}
-          height={100}
-          src="/images/venmo.jpg"
-        />
-      )}
-      <RoundImg
+      {apps.map((app, i) => {
+        return (
+          <>
+            <RoundImg
+              css={css`
+                z-index: ${i === 0 ? 99 : 2};
+                opacity: ${i === 0 ? 1 : showAll ? 1 : 0};
+                transform: ${showAll ? `translateX(${60 * i}px)` : 0};
+                transition: all 0.5s ease-in-out;
+              `}
+              onMouseEnter={(event: any) => {
+                setTargetPaymentIndex(i);
+              }}
+              onMouseLeave={() => {
+                setTargetPaymentIndex(-1);
+              }}
+              src={`/images/${app}`}
+              width={50}
+              height={50}
+            />
+            {targetPaymentIndex === i && (
+              <img
+                onMouseEnter={(event: any) => {
+                  setTargetPaymentIndex(i);
+                }}
+                onMouseLeave={() => {
+                  setTargetPaymentIndex(-1);
+                }}
+                css={css`
+                  position: absolute;
+                  bottom: 50px;
+                  left: ${-20 + i * 50}px;
+                  opacity: ${targetPaymentIndex === i && showAll ? 1 : 0};
+                  transition: all 0.2s ease-in;
+                `}
+                width={100}
+                height={100}
+                src="/images/qrcode.jpg"
+              />
+            )}
+          </>
+        );
+      })}
+
+      {/* <RoundImg
         onMouseEnter={(event: any) => {
           setTargetPaymentIndex(1);
         }}
@@ -126,7 +141,7 @@ export function PaymentWidget() {
           `}
           src="/images/venmo.jpg"
         />
-      )}
+      )} */}
     </div>
   );
 }
