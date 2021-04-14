@@ -18,6 +18,7 @@ export function Footer() {
       <span
         css={css`
           color: grey;
+          margin-top: auto;
         `}
       >
         Kevin Qi &#169; 2021-Today
