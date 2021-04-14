@@ -37,7 +37,7 @@ export function SquigglyLine() {
       animate="animate"
       css={css`
         position: absolute;
-        top: 45px;
+        top: 50px;
       `}
       width="27"
       height="13"
