@@ -15,7 +15,7 @@ export const COLORS: Record<
   }
 > = {
   light: {
-    background: color(BASE_LIGHT).darken(0.01).hsl().toString(),
+    background: BASE_LIGHT, // color(BASE_LIGHT).darken(0.01).hsl().toString(),
     backgroundDark: "#dbe6ff",
     post: color(BASE_LIGHT).darken(0.1).hsl().toString(),
     text: "black",

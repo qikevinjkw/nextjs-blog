@@ -5,6 +5,7 @@ summary: "Stuff I still need to do for this site"
 image: "todolist.png"
 ---
 
+- add squiggly svg to footer
 - spring animation for payment
 - add newsletter
 - navbar styling is off with that horizontal scroll bar

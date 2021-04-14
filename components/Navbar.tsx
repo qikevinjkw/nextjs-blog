@@ -49,45 +49,62 @@ export function Navbar() {
   return (
     <div
       css={css`
-        position: sticky;
-        z-index: 5;
-        top: 0;
-        min-height: ${NAVBAR_HEIGHT}px;
-        background: var(--color-background-dark);
-        transition: background-color 0.5s ease;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
+        flex-direction: column;
       `}
     >
       <div
         css={css`
+          position: sticky;
+          z-index: 5;
+          top: 0;
+          min-height: ${NAVBAR_HEIGHT}px;
+          background: var(--color-background-dark);
+          transition: background-color 0.5s ease;
           display: flex;
+          justify-content: space-between;
           align-items: center;
+          padding: 10px;
         `}
       >
-        <Title />
-        <nav
+        <div
           css={css`
-            margin-left: 80px;
+            display: flex;
+            align-items: center;
           `}
-          className="hide-mobile"
         >
-          <ul
+          <Title />
+          <nav
             css={css`
-              margin: 0;
-              display: flex;
-              list-style: none;
+              margin-left: 80px;
             `}
+            className="hide-mobile"
           >
-            {Routes.map(({ href, name }) => {
-              return <NavbarLink key={href} href={href} name={name} />;
-            })}
-          </ul>
-        </nav>
+            <ul
+              css={css`
+                margin: 0;
+                display: flex;
+                list-style: none;
+              `}
+            >
+              {Routes.map(({ href, name }) => {
+                return <NavbarLink key={href} href={href} name={name} />;
+              })}
+            </ul>
+          </nav>
+        </div>
+        <IconBar />
       </div>
-      <IconBar />
+      <div>
+        <svg viewBox="0 0 1186 104" fill="none">
+          <rect width="1186" height="104" fill="var(--color-background-dark)" />
+          <path
+            d="M617 66.3817C396 85.1908 0 31.7023 0 31.7023V104H1186V27C1186 27 838 47.5725 617 66.3817Z"
+            fill="var(--color-background)"
+            stroke="none"
+          />
+        </svg>
+      </div>
     </div>
   );
 }

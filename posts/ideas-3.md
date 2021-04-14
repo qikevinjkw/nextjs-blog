@@ -14,3 +14,4 @@ date: "2021-04-13"
 - get stats about any twitter user
 - forum like reddit, but you don't need to sign up. No moderation
 - online menus for all restaurants - the wikipedia for restaurant menus
+- place for everyone to post their referer links

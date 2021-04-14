@@ -36,6 +36,7 @@ export function Layout(props) {
         className="main-content"
         css={css`
           flex: 1 1 auto;
+          background-color: var(--color-background);
         `}
       >
         {props.children}
