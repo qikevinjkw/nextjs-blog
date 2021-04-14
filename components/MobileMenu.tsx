@@ -50,7 +50,7 @@ export function MobileMenu() {
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 2;
+        z-index: 10;
         background: var(--color-background);
         transition: background-color 0.5s ease;
         display: flex;

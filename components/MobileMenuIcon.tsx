@@ -46,7 +46,7 @@ export function MobileMenuIcon() {
         top: 15px;
         right: 15px;
         cursor: pointer;
-        z-index: 6;
+        z-index: 11;
       `}
       onClick={() => {
         setMenuOn((prev) => !prev);
