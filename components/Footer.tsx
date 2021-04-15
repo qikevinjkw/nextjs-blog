@@ -11,7 +11,7 @@ export function Footer() {
         align-items: center;
         flex: 1 1 auto;
         background-color: var(--color-background-dark);
-        max-height: 500px;
+        max-height: 400px;
       `}
     >
       <div
@@ -19,7 +19,26 @@ export function Footer() {
           width: 100%;
         `}
       >
-        <svg viewBox="0 0 975 173" fill="none">
+        <svg viewBox="0 0 975 89" fill="none">
+          <g clip-path="url(#clip0)">
+            <rect width="975" height="89" fill="var(--color-background)" />
+            <path
+              d="M248 17.2811C81 -12.1419 0 71.3559 0 71.3559V197H975V17.2811C975 17.2811 796 43.8199 686 66.0859C576 88.352 415 46.7041 248 17.2811Z"
+              fill="var(--color-background-dark)"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0">
+              <rect
+                width="975"
+                height="89"
+                fill="var(--color-background-dark)"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+
+        {/* <svg viewBox="0 0 975 173" fill="none">
           <g clipPath="url(#clip0)">
             <rect width="975" height="173" fill="var(--color-background)" />
             <path
@@ -32,11 +51,11 @@ export function Footer() {
               <rect width="975" height="173" fill="var(--color-background)" />
             </clipPath>
           </defs>
-        </svg>
+        </svg> */}
       </div>
       <div
         css={css`
-          height: 400px;
+          height: 200px;
         `}
       ></div>
       <div
