@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Card } from "../components/Card";
 import { MESSAGES_COLLECTION } from "../components/Firebase";
+import { MagicRainbowButton } from "../components/RainbowButton";
 import { useAppInit } from "../providers/AppInitProvider";
 
 interface Note {
@@ -70,19 +71,16 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main
+      css={css`
+        display: flex;
+        justify-content: center;
+      `}
+    >
       <Head>
         <title>Kevin Qi</title>
       </Head>
-      New Habits to Develop
-      <ul>
-        <li>Read 10min a day</li>
-        <li>Code side project two days a week for 30min each</li>
-        <li>
-          Write 10 ideas about new habits, new projects, new investments, new
-          video ideas, new articles, etc each day
-        </li>
-      </ul>
+      <MagicRainbowButton>Welcome</MagicRainbowButton>
     </main>
   );
 }
