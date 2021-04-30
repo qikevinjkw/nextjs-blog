@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { useEffect, useState } from "react";
 
 export function ProgressBar({ progress }: { progress: number }) {
   return (
